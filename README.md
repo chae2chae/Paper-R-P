@@ -8,5 +8,4 @@
 - [Nested Learning: The Illusion of Deep Learning Architectures]
 - [π∗  0.6: a VLA That Learns From Experience](./issues/3)
 ### 25-W48
-- [DreamGen]()
-- [RWM]()
+- [DreamGen, RWM : 로봇 데이터 생성관점](./issues/4)
