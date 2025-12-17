@@ -6,3 +6,4 @@
 - [Discovering state-of-the-art reinforcement learning algorithms]
 - [Nested Learning: The Illusion of Deep Learning Architectures]
 - [π∗  0.6: a VLA That Learns From Experience](https://github.com/chae2chae/Paper-R-P/issues/3)
+- [VLA-0: Building State-of-the-Art VLAs with Zero Modification](https://github.com/chae2chae/Paper-R-P/issues/5)
