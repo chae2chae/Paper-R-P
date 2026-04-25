@@ -1,0 +1,858 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>LLM_WIKI — LLM이 관리하는 연구 위키</title>
+<style>
+  :root{
+    --bg:#0a0d12;
+    --bg-2:#10151c;
+    --bg-3:#161c25;
+    --line:#222a36;
+    --text:#e6ebf2;
+    --text-2:#a6b1c2;
+    --muted:#6b7686;
+    --accent:#22d3ee;       /* cyan */
+    --accent-2:#fbbf24;     /* amber */
+    --accent-3:#a78bfa;     /* purple */
+    --good:#34d399;
+    --warn:#f87171;
+    --radius:14px;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Segoe UI",Roboto,"Apple SD Gothic Neo",sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased}
+  code,.mono{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px dashed rgba(34,211,238,.4)}
+  a:hover{color:#67e8f9;border-bottom-color:#67e8f9}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  /* HERO */
+  header.hero{
+    position:relative;overflow:hidden;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(34,211,238,.18), transparent 60%),
+      radial-gradient(900px 500px at 10% 110%, rgba(167,139,250,.18), transparent 60%),
+      linear-gradient(180deg, #0b1118, #0a0d12);
+    border-bottom:1px solid var(--line);
+  }
+  .hero-inner{padding:64px 24px 48px}
+  .eyebrow{
+    display:inline-block;color:var(--accent);font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;border:1px solid rgba(34,211,238,.4);
+    padding:4px 10px;border-radius:999px;margin-bottom:18px
+  }
+  h1.title{
+    font-size:clamp(32px,5.6vw,60px);line-height:1.08;margin:0 0 16px;
+    letter-spacing:-.02em;font-weight:800;
+    background:linear-gradient(90deg,#fff 0%,#a6b1c2 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .lede{font-size:clamp(16px,2vw,20px);color:var(--text-2);max-width:820px;margin:0 0 28px}
+  .lede strong{color:var(--text)}
+  .meta-row{display:flex;flex-wrap:wrap;gap:12px 28px;color:var(--muted);font-size:14px}
+  .meta-row span b{color:var(--text-2);font-weight:500}
+
+  .equation{
+    display:inline-block;margin-top:20px;padding:12px 18px;
+    background:var(--bg-3);border:1px solid var(--line);border-radius:10px;
+    font-family:ui-monospace,monospace;font-size:14px;color:var(--text-2)
+  }
+  .equation b{color:var(--accent-2)}
+
+  /* STATS */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:36px 0 0}
+  @media (max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{
+    background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
+    border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 16px;
+  }
+  .stat .num{font-size:clamp(24px,3vw,30px);font-weight:700;color:var(--accent-2);letter-spacing:-.01em}
+  .stat .lbl{color:var(--text-2);font-size:13px;margin-top:4px}
+  .stat .sub{color:var(--muted);font-size:11.5px;margin-top:6px}
+
+  /* SECTIONS */
+  section{padding:56px 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:none}
+  .h2{display:flex;align-items:baseline;gap:14px;margin:0 0 18px;flex-wrap:wrap}
+  .h2 .num{
+    font-family:ui-monospace,monospace;color:var(--accent);
+    font-size:14px;letter-spacing:.05em;border:1px solid rgba(34,211,238,.4);
+    padding:2px 8px;border-radius:6px
+  }
+  .h2 h2{font-size:clamp(22px,3vw,30px);margin:0;letter-spacing:-.01em}
+  .lead{color:var(--text-2);max-width:780px;margin:-4px 0 24px}
+
+  /* CARDS */
+  .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media (max-width:820px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+  .card{
+    background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:20px
+  }
+  .card h3{margin:0 0 6px;font-size:17px}
+  .card .role{color:var(--accent);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+  .card p{color:var(--text-2);margin:8px 0 0;font-size:14px}
+  .card .mono{font-size:12.5px;color:var(--accent-3)}
+  .pill{
+    display:inline-block;font-size:11px;color:var(--text-2);
+    border:1px solid var(--line);border-radius:999px;padding:2px 8px;margin:6px 4px 0 0;
+    background:var(--bg-3)
+  }
+
+  /* TABLE */
+  table{width:100%;border-collapse:collapse;font-size:14px;background:var(--bg-2);
+    border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--bg-3);color:var(--text-2);font-weight:600;font-size:12px;
+    letter-spacing:.05em;text-transform:uppercase}
+  tr:last-child td{border-bottom:none}
+  td code{color:var(--accent);background:rgba(34,211,238,.08);padding:1px 6px;border-radius:4px;font-size:12.5px}
+  .scroll{overflow-x:auto}
+
+  /* diagram frames */
+  .diagram{
+    background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;margin:0 0 18px
+  }
+  .diagram h3{margin:0 0 8px;font-size:15px;color:var(--text)}
+  .diagram .cap{color:var(--muted);font-size:12px;margin:0 0 14px}
+  .mermaid{display:flex;justify-content:center;min-height:60px}
+
+  /* pipeline */
+  .pipeline{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px}
+  @media (max-width:820px){.pipeline{grid-template-columns:1fr}}
+  .stage{
+    background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:16px;
+    position:relative
+  }
+  .stage .step{font-family:ui-monospace,monospace;color:var(--accent-3);font-size:12px}
+  .stage h4{margin:6px 0 4px;font-size:15px}
+  .stage p{margin:6px 0 0;color:var(--text-2);font-size:13px}
+  .stage .ex{
+    margin-top:10px;padding:8px 10px;background:var(--bg-3);border-left:3px solid var(--accent);
+    border-radius:0 8px 8px 0;font-size:12.5px;color:var(--text-2);font-style:italic
+  }
+
+  /* callouts */
+  .callout{
+    border-left:3px solid var(--accent-3);background:rgba(167,139,250,.06);
+    padding:14px 16px;border-radius:0 10px 10px 0;color:var(--text-2);font-size:14px
+  }
+  .callout b{color:var(--text)}
+  .callout.amber{border-color:var(--accent-2);background:rgba(251,191,36,.06)}
+  .callout.cyan{border-color:var(--accent);background:rgba(34,211,238,.06)}
+  .quote{
+    border-left:3px solid var(--accent-2);background:rgba(251,191,36,.06);
+    padding:14px 16px;border-radius:0 10px 10px 0;color:var(--text);font-size:15px;
+    font-style:italic;margin:0 0 18px
+  }
+
+  /* takeaways */
+  ul.tk{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+  ul.tk li{
+    background:var(--bg-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;
+    color:var(--text-2);font-size:14px
+  }
+  ul.tk li b{color:var(--text)}
+
+  /* open questions */
+  ol.oq{margin:0;padding-left:22px;color:var(--text-2);font-size:14px}
+  ol.oq li{margin-bottom:8px}
+  ol.oq li::marker{color:var(--accent-2);font-family:ui-monospace,monospace;font-weight:700}
+
+  /* references */
+  .refs{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px}
+  @media (max-width:760px){.refs{grid-template-columns:1fr}}
+  .refs a{font-size:13.5px;display:block;padding:6px 0;border-bottom:0}
+
+  footer{padding:36px 24px 60px;text-align:center;color:var(--muted);font-size:12.5px}
+  footer a{color:var(--text-2);border:none}
+
+  /* action icons */
+  .action-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px}
+  @media (max-width:760px){.action-grid{grid-template-columns:repeat(2,1fr)}}
+  .act{
+    background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:16px;
+    text-align:left
+  }
+  .act .ico{font-family:ui-monospace,monospace;font-size:11px;color:var(--accent);
+    letter-spacing:.08em;text-transform:uppercase}
+  .act h4{margin:6px 0 4px;font-size:15px}
+  .act p{margin:0;color:var(--text-2);font-size:13px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <span class="eyebrow">26Q2 · Personal Knowledge System</span>
+    <h1 class="title">07_LLM_WIKI<br/><span style="color:var(--text-2);font-weight:500;font-size:.55em">— LLM이 관리하는 내 연구 위키</span></h1>
+    <p class="lede">
+      "문서를 찾는" 방식(RAG)이 아니라,
+      <strong>LLM이 편집자·사서 역할을 하며 markdown wiki를 계속 갱신</strong>해 두는 운영 방식.
+      Karpathy가 제안한 패턴을 <strong>Obsidian + VLA 연구 도메인</strong>에 맞춰 실제로 돌리는 구현체
+    </p>
+
+    <div class="equation">
+      raw documents &nbsp;→&nbsp; <b>LLM-maintained wiki</b> &nbsp;→&nbsp; user query
+    </div>
+
+    <div class="meta-row" style="margin-top:24px">
+      <span><b>시작</b> 2026-04-16</span>
+      <span><b>스냅샷</b> 2026-04-23</span>
+      <span><b>최근 보강</b> 2026-04-25 · Reading &amp; Search Layer</span>
+      <span><b>도메인</b> VLA · Online RL · Sim2Real</span>
+      <span><b>툴</b> Obsidian + Claude Code</span>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="num">22</div>
+        <div class="lbl">총 wiki 페이지</div>
+        <div class="sub">4월 23일 기준 · 2주간 누적</div>
+      </div>
+      <div class="stat">
+        <div class="num">9</div>
+        <div class="lbl">Ingest된 논문 소스</div>
+        <div class="sub">02_Papers/ 연동, Zotero 호환</div>
+      </div>
+      <div class="stat">
+        <div class="num">9</div>
+        <div class="lbl">Concept 페이지</div>
+        <div class="sub">VLA · RL · Sim2Real · Chunking ...</div>
+      </div>
+      <div class="stat">
+        <div class="num">7</div>
+        <div class="lbl">현재 열린 질문</div>
+        <div class="sub">overview.md에서 실시간 갱신</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- 1. WHY -->
+  <section>
+    <div class="h2"><span class="num">01</span><h2>왜 위키인가 — RAG와 뭐가 다른가</h2></div>
+    <p class="lead">LLM에 문서를 그냥 넣으면 RAG가 작동한다. 질문이 올 때마다 관련 조각을 찾아 답을 만든다. 편하지만 <b>지식이 쌓이지 않는다</b>. 매 질문마다 처음부터 다시 조합할 뿐이다.</p>
+    <div class="quote">
+      "위키의 아이디어는 이렇다 — 질의 시점에 검색하지 말고, <b>새 소스가 들어올 때마다 LLM이 기존 위키에 통합</b>해둬라.
+      요약하고, 기존 주제 페이지를 수정하고, 엔티티 페이지를 갱신하고, 이전 주장과 충돌하면 모순을 표시한다."
+    </div>
+    <div class="grid-2" style="margin-top:18px">
+      <div class="card">
+        <span class="role">RAG</span>
+        <h3>질의 시점에 재조합</h3>
+        <p>원문 청크 저장 → 임베딩 검색 → 매번 답 생성. 지식이 <b>누적되지 않고</b>, 모순도 안 잡힌다.</p>
+      </div>
+      <div class="card">
+        <span class="role">LLM Wiki</span>
+        <h3>한 번 정제된 중간 산출물</h3>
+        <p>새 소스 입력 즉시 wiki에 통합. 요약/링크/모순 플래그/인덱스까지 유지. 사용자는 <b>정리된 knowledge base에 질의</b>한다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. PATTERN -->
+  <section>
+    <div class="h2"><span class="num">02</span><h2>3-Layer 패턴 (Karpathy 원문)</h2></div>
+    <p class="lead">원문은 세 레이어로 구성된다 — <code>Raw sources</code>, <code>The wiki</code>, <code>The schema</code>. LLM은 이 사이에서 편집·유지보수 작업을 맡는다.</p>
+
+    <div class="diagram">
+      <h3>3-Layer 구조</h3>
+      <p class="cap">사용자는 원문을 넣고 질문만 한다. LLM이 사이에서 wiki를 계속 갱신.</p>
+      <div class="mermaid">
+flowchart LR
+  A["📚 Raw Sources<br/><small>논문·기사·이미지·데이터<br/>source of truth · 수정 X</small>"]:::raw
+  B["📝 The Wiki<br/><small>LLM이 만드는 markdown<br/>요약·개념·엔티티·비교</small>"]:::wiki
+  C["📐 The Schema<br/><small>CLAUDE.md / AGENTS.md<br/>운영 규칙 · 페이지 타입</small>"]:::schema
+  U["👤 User<br/><small>소스 넣기·질문·방향</small>"]:::user
+  L(["🤖 LLM<br/>편집자 + 사서"]):::llm
+
+  U -->|"소스 추가"| A
+  A -->|"읽고"| L
+  C -->|"규칙 제공"| L
+  L -->|"요약·링크·모순 플래그"| B
+  B -->|"질의 응답"| U
+  U -->|"질문"| L
+
+  classDef raw fill:#0f1a1e,stroke:#22d3ee,stroke-width:1.5px,color:#e6ebf2
+  classDef wiki fill:#1a1630,stroke:#a78bfa,stroke-width:1.5px,color:#e6ebf2
+  classDef schema fill:#1e1a0f,stroke:#fbbf24,stroke-width:1.5px,color:#e6ebf2
+  classDef user fill:#161c25,stroke:#6b7686,color:#e6ebf2
+  classDef llm fill:#0a2e1f,stroke:#34d399,stroke-width:2px,color:#e6ebf2
+      </div>
+    </div>
+    <p class="callout">
+      <b>핵심:</b> 지식이 질문마다 재생성되는 게 아니라, <b>한 번 정리되어 계속 누적되는 중간 산출물(wiki)</b>이 생긴다.
+      LLM은 "요약·분류·링크 연결·페이지 수정·기록 유지"라는 잡무를 담당하는 구조.
+    </p>
+  </section>
+
+  <!-- 3. DATA FLOW -->
+  <section>
+    <div class="h2"><span class="num">03</span><h2>데이터 흐름 — Ingest · Query · Lint</h2></div>
+    <p class="lead">wiki를 실제로 운영하는 세 가지 동작. 하나하나가 LLM에게 위임되는 일감이다.</p>
+
+    <div class="pipeline">
+      <div class="stage">
+        <span class="step">01 · INGEST</span>
+        <h4>소스 넣기 → 여러 페이지 갱신</h4>
+        <p>새 논문/기사 진입 시 요약 페이지 생성, entity·concept 갱신, 모순 체크, index/log 업데이트까지 한 번에.</p>
+        <div class="ex">"이 논문 ingest 해줘"</div>
+      </div>
+      <div class="stage">
+        <span class="step">02 · QUERY</span>
+        <h4>질문 → wiki 합성 답변</h4>
+        <p>관련 페이지를 읽고 합성. 보존 가치 있는 답변은 <code>analyses/</code>에 새 페이지로 저장해 재사용.</p>
+        <div class="ex">"VLA에 adaptive chunking이랑 residual RL 어떻게 붙이지?"</div>
+      </div>
+      <div class="stage">
+        <span class="step">03 · LINT</span>
+        <h4>주기 점검 → 리포트</h4>
+        <p>고아 페이지, stale 주장, 모순 callout, 끊긴 링크, index 불일치를 한꺼번에 찾아 리포트.</p>
+        <div class="ex">"wiki 점검해줘"</div>
+      </div>
+    </div>
+
+    <div class="diagram" style="margin-top:22px">
+      <h3>Ingest 플로우 상세</h3>
+      <p class="cap">논문 하나가 들어오면 평균 2~7개 페이지가 생성·갱신된다.</p>
+      <div class="mermaid">
+flowchart LR
+  P["📄 새 논문<br/><small>02_Papers/</small>"]:::s1
+  L["🤖 LLM<br/><small>schema 로드</small>"]:::s2
+  S["📝 Source-*.md<br/><small>요약 생성</small>"]:::s3
+  C["🧠 Concept-*.md<br/><small>개념 갱신</small>"]:::s3
+  E["🏢 Entity-*.md<br/><small>엔티티 갱신</small>"]:::s3
+  X{"⚠️ 모순?"}:::check
+  W["> [!warning]<br/>callout 삽입"]:::warn
+  M["📊 _meta/*<br/><small>index · log · context</small>"]:::s4
+
+  P --> L --> S
+  L --> C
+  L --> E
+  S --> X
+  C --> X
+  X -- "yes" --> W
+  X -- "no" --> M
+  W --> M
+
+  classDef s1 fill:#0f1a1e,stroke:#22d3ee,color:#e6ebf2
+  classDef s2 fill:#0a2e1f,stroke:#34d399,color:#e6ebf2
+  classDef s3 fill:#1a1630,stroke:#a78bfa,color:#e6ebf2
+  classDef s4 fill:#1e1a0f,stroke:#fbbf24,color:#e6ebf2
+  classDef check fill:#2a1f1f,stroke:#f87171,color:#e6ebf2
+  classDef warn fill:#3a2020,stroke:#f87171,color:#fecaca
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. FOLDER STRUCTURE -->
+  <section>
+    <div class="h2"><span class="num">04</span><h2>내 구현 — 폴더 구조</h2></div>
+    <p class="lead">7개 고정 폴더 + 2개 루트 파일. 외부 raw source 폴더 4개는 <b>읽기 전용 참조</b>로 편입.</p>
+
+    <div class="diagram">
+      <h3>07_LLM_WIKI/ 트리</h3>
+      <p class="cap">색: 🟦 메타·스키마 · 🟪 LLM이 만든 페이지 · 🟧 사용자가 보는 입구 · ⬜ 외부 raw</p>
+      <div class="mermaid">
+flowchart LR
+  R["📁 07_LLM_WIKI/"]:::root
+  M1["📁 _meta/<br/><small>index · log · now · context.json</small>"]:::meta
+  M2["📁 _schema/<br/><small>CLAUDE.md · 운영 규칙</small>"]:::meta
+  E["📁 entities/<br/><small>Entity-*.md<br/>모델·회사 팩트</small>"]:::page
+  C["📁 concepts/<br/><small>Concept-*.md<br/>개념 심화</small>"]:::page
+  S["📁 sources/<br/><small>Source-*.md<br/>논문 요약</small>"]:::page
+  A["📁 analyses/<br/><small>Analysis-*.md<br/>보존할 Q&amp;A</small>"]:::page
+  W["📁 raw/<br/><small>wiki 전용 원자료</small>"]:::raw
+  O["📄 overview.md<br/><small>조감도 · 입구</small>"]:::entry
+  H["📄 HOWTO.md<br/><small>운영 가이드</small>"]:::entry
+
+  R --> M1
+  R --> M2
+  R --> E
+  R --> C
+  R --> S
+  R --> A
+  R --> W
+  R --> O
+  R --> H
+
+  EXT["📚 외부 Raw Sources<br/>(읽기 전용 참조)"]:::ext
+  P1["01_Research/"]:::extItem
+  P2["02_Papers/"]:::extItem
+  P3["03_Ideas/"]:::extItem
+  P4["05_Archive/"]:::extItem
+  EXT --> P1
+  EXT --> P2
+  EXT --> P3
+  EXT --> P4
+  EXT -.->|"LLM이 읽음"| R
+
+  classDef root fill:#0a2e1f,stroke:#34d399,stroke-width:2px,color:#e6ebf2
+  classDef meta fill:#0f1a1e,stroke:#22d3ee,color:#e6ebf2
+  classDef page fill:#1a1630,stroke:#a78bfa,color:#e6ebf2
+  classDef raw fill:#1a1a1a,stroke:#6b7686,color:#e6ebf2
+  classDef entry fill:#1e1a0f,stroke:#fbbf24,color:#e6ebf2
+  classDef ext fill:#161c25,stroke:#6b7686,color:#a6b1c2,stroke-dasharray:4 3
+  classDef extItem fill:#10151c,stroke:#222a36,color:#6b7686
+      </div>
+    </div>
+
+    <p class="callout cyan">
+      <b>현실적 설계:</b> Karpathy 원문은 wiki를 독립 리포로 가정하지만, 나는 Obsidian 볼트의
+      <code>01_Research/</code>, <code>02_Papers/</code>, <code>03_Ideas/</code>, <code>05_Archive/</code>를
+      그대로 raw source로 재활용한다. <code>07_LLM_WIKI/raw/</code>에는 "기존 폴더에 없는 것만" 넣어 중복을 피함.
+    </p>
+  </section>
+
+  <!-- 5. KARPATHY VS MINE -->
+  <section>
+    <div class="h2"><span class="num">05</span><h2>Karpathy 원문 vs 내 구현</h2></div>
+    <p class="lead">Karpathy 원문은 "패턴"이고 내 wiki는 그걸 VLA 도메인에 맞춘 "구현체". 원문 대비 <b>더 엄격</b>한 쪽으로 간 부분이 많다.</p>
+
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>항목</th><th>Karpathy 원문</th><th>My wiki (07_LLM_WIKI)</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>디렉토리</b></td>
+            <td>3 layer (raw / wiki / schema) — 추상</td>
+            <td><code>_meta/</code>, <code>_schema/</code>, <code>entities/</code>, <code>concepts/</code>, <code>sources/</code>, <code>analyses/</code>, <code>raw/</code>, <code>overview.md</code> — 7개 고정</td>
+          </tr>
+          <tr>
+            <td><b>페이지 유형</b></td>
+            <td>예시만 언급 (entity, concept, summary)</td>
+            <td><code>Entity-</code>, <code>Concept-</code>, <code>Source-</code>, <code>Analysis-</code> prefix 강제</td>
+          </tr>
+          <tr>
+            <td><b>Frontmatter</b></td>
+            <td>언급 없음 (Dataview 정도)</td>
+            <td>YAML 필수 — <code>type</code>, <code>sources</code>, <code>updated</code> 등</td>
+          </tr>
+          <tr>
+            <td><b>링크 규칙</b></td>
+            <td>"cross-references가 생긴다"</td>
+            <td>페이지당 최소 <b>2개 <code>[[]]</code> 링크 강제</b></td>
+          </tr>
+          <tr>
+            <td><b>메타 파일</b></td>
+            <td>구체 명시 없음 — 인덱스/로그 정도가 자연스럽게 따라온다는 수준의 언급</td>
+            <td><code>_meta/index.md</code> + <code>_meta/log.md</code> + <code>_meta/context.json</code> 명시 추가. <code>context.json</code>엔 <code>wiki_stats</code> / <code>ingested_sources</code> / <code>pending_sources</code> / <code>open_questions</code> / <code>session_log</code> / <code>bootstrap_prompt</code> 6개 키</td>
+          </tr>
+          <tr>
+            <td><b>모순 처리</b></td>
+            <td>"contradictions flag"</td>
+            <td>Obsidian <code>&gt; [!warning] 모순</code> callout 포맷 고정</td>
+          </tr>
+          <tr>
+            <td><b>도메인</b></td>
+            <td>personal / research / book / business 등 범용</td>
+            <td><b>VLA 아키텍처 · Online RL · Sim2Real · 일반화 실패</b>로 고정</td>
+          </tr>
+          <tr>
+            <td><b>Reading / Search 레이어</b></td>
+            <td><code>qmd</code> 같은 검색 CLI + 다양한 reading view 시사</td>
+            <td><b>2026-04-25 구현</b> — <code>_meta/now.md</code> + <code>context.json.focus</code> 이중 focus, <code>overview.md</code>의 Dataview Dashboard, Omnisearch + Dataview + rg 3중 검색 (§8·5 참고)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-2" style="margin-top:18px">
+      <div class="card" style="border-left:3px solid var(--good)">
+        <span class="role">더 엄격한 쪽</span>
+        <h3>원문 대비 타이트하게 박은 것</h3>
+        <p>
+          링크 최소 2개 강제 · frontmatter 필수 · 파일명 prefix 고정 · <code>context.json</code> 상태 파일 추가.
+          LLM이 "알아서 잘 하겠지"에 기대지 않고 schema로 강제.
+        </p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--good)">
+        <span class="role">2026-04-25 보강</span>
+        <h3>Reading + Search 레이어 추가</h3>
+        <p>
+          <b>Focus 이중화</b> (<code>now.md</code> + <code>context.json.focus</code>) · <b>Dashboard</b> (<code>overview.md</code> 상단 Dataview) · <b>3중 검색</b> (Omnisearch + Dataview + rg). 자세한 변경 내역은 §8·5.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. SNAPSHOT -->
+  <section>
+    <div class="h2"><span class="num">06</span><h2>실제 wiki 스냅샷 <span style="color:var(--muted);font-size:14px;font-weight:400;margin-left:8px">2026-04-23</span></h2></div>
+    <p class="lead">2주 운영 후 현재 상태. 숫자는 <code>_meta/context.json</code>에서 가져온 실제 값.</p>
+
+    <div class="stats" style="margin-top:0">
+      <div class="stat"><div class="num">22</div><div class="lbl">Total pages</div></div>
+      <div class="stat"><div class="num">4</div><div class="lbl">Entities</div></div>
+      <div class="stat"><div class="num">9</div><div class="lbl">Concepts</div></div>
+      <div class="stat"><div class="num">9</div><div class="lbl">Sources</div></div>
+    </div>
+
+    <div class="diagram" style="margin-top:26px">
+      <h3>현재 도메인 맵 (4개 축)</h3>
+      <p class="cap"><code>overview.md</code>의 주요 도메인 · 대표 페이지만 발췌</p>
+      <div class="mermaid">
+flowchart TD
+  W["🌐 07_LLM_WIKI"]:::hub
+
+  D1["① VLA 아키텍처 &amp; 개선"]:::d1
+  D2["② Online RL for VLA &amp; Sim2Real"]:::d2
+  D3["③ 일반화 실패 진단"]:::d3
+  D4["④ VLA 대안 / 상보 아키텍처"]:::d4
+
+  W --> D1
+  W --> D2
+  W --> D3
+  W --> D4
+
+  V1["Concept-VLA"]:::page
+  V2["Concept-Instruction-Tuning"]:::page
+  V3["Concept-Action-Chunking"]:::page
+  V4["Entity-pi0 · π*0.6 · π0.7"]:::page
+  D1 --> V1
+  D1 --> V2
+  D1 --> V3
+  D1 --> V4
+
+  R1["Concept-Online-RL-for-VLA"]:::page
+  R2["Concept-Residual-RL"]:::page
+  R3["Concept-Sim2Real"]:::page
+  D2 --> R1
+  D2 --> R2
+  D2 --> R3
+
+  G1["Concept-Shortcut-Learning"]:::page
+  G2["Source-paiMimicVideo2025"]:::page
+  D3 --> G1
+  D3 --> G2
+
+  A1["Concept-Video-Action-Model"]:::page
+  A2["Concept-World-Model"]:::page
+  D4 --> A1
+  D4 --> A2
+
+  classDef hub fill:#0a2e1f,stroke:#34d399,stroke-width:2px,color:#e6ebf2
+  classDef d1 fill:#0f1a1e,stroke:#22d3ee,color:#e6ebf2
+  classDef d2 fill:#1a1630,stroke:#a78bfa,color:#e6ebf2
+  classDef d3 fill:#2a1f1f,stroke:#f87171,color:#fecaca
+  classDef d4 fill:#1e1a0f,stroke:#fbbf24,color:#e6ebf2
+  classDef page fill:#10151c,stroke:#222a36,color:#a6b1c2,stroke-width:1px
+      </div>
+    </div>
+
+    <div class="diagram">
+      <h3>현재 연구 프레임 (내 해석)</h3>
+      <p class="cap"><code>overview.md</code>에 박혀있는 조감도 — 각 layer가 독립 개선 축</p>
+      <div class="mermaid">
+flowchart TD
+  PT["사전학습"]:::pre
+
+  VLM["VLM<br/><small>semantic</small>"]:::prior
+  VID["Video<br/><small>dynamics</small>"]:::prior
+  WM["World Model<br/><small>counterfactual</small>"]:::prior
+
+  PT --> VLM
+  PT --> VID
+  PT --> WM
+
+  VLA["VLA / VAM"]:::core
+  IT["instruction tuning"]:::mod
+
+  VLM --> VLA
+  VID --> VLA
+  WM --> VLA
+  IT -.-> VLA
+
+  POL["배포 정책"]:::deploy
+  VLA --> POL
+
+  C1["adaptive chunking<br/><small>추론 레벨</small>"]:::axis
+  C2["residual RL<br/><small>정밀 구간</small>"]:::axis
+  C3["online RL<br/><small>경험 누적</small>"]:::axis
+  C4["sim→real<br/><small>warm-start</small>"]:::axis
+
+  POL --> C1
+  POL --> C2
+  POL --> C3
+  POL --> C4
+
+  classDef pre fill:#0a2e1f,stroke:#34d399,color:#e6ebf2
+  classDef prior fill:#0f1a1e,stroke:#22d3ee,color:#e6ebf2
+  classDef core fill:#1a1630,stroke:#a78bfa,stroke-width:2px,color:#e6ebf2
+  classDef mod fill:#1e1a0f,stroke:#fbbf24,color:#e6ebf2,stroke-dasharray:3 2
+  classDef deploy fill:#161c25,stroke:#6b7686,color:#e6ebf2
+  classDef axis fill:#10151c,stroke:#222a36,color:#a6b1c2
+      </div>
+    </div>
+
+    <div class="callout amber" style="margin-top:8px">
+      <b>Wiki는 저장소가 아니라 사고의 프론티어.</b> <code>overview.md</code> 하단엔 이 연구 프레임과 함께
+      <b>아직 답이 없는 열린 질문 7개</b>가 실시간으로 유지된다. 주간 리뷰 때마다 갱신·추가·삭제된다.
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <span class="role">열린 질문 · 2026-04-23</span>
+      <ol class="oq">
+        <li>VLM vs Video vs World-Model 중 어느 prior가 로봇 제어에 가장 근본적인가? 하이브리드는?</li>
+        <li>π0.7의 emergence 주장이 shortcut learning을 해결하는가, 더 교묘하게 만드는가?</li>
+        <li>Instruction-tuned VLA 위에 residual/online RL이 안정적으로 결합 가능한가?</li>
+        <li>Adaptive chunking과 residual RL의 경계 설계는?</li>
+        <li>As et al.(2026) sim→online RL 결론이 대규모 VLA pretraining에도 유효한가?</li>
+        <li>Multi-task online RL — 단일 residual policy가 여러 태스크를 커버 가능한가?</li>
+        <li>Dataset fragmentation 완화 — 어떤 큐레이션이 shortcut을 줄이는가?</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 7. HOWTO -->
+  <section>
+    <div class="h2"><span class="num">07</span><h2>운영 루틴</h2></div>
+    <p class="lead">사용자(나)와 LLM의 역할이 분리돼 있다. 나는 방향과 질문을 주고, LLM은 요약·링크·페이지 수정·모순 플래그·인덱스 유지를 맡는다.</p>
+
+    <div class="action-grid">
+      <div class="act">
+        <span class="ico">01 · INGEST</span>
+        <h4>소스 넣기</h4>
+        <p>새 논문 → "이거 ingest 해줘" → 요약·개념·엔티티·모순 한 번에 갱신.</p>
+      </div>
+      <div class="act">
+        <span class="ico">02 · QUERY</span>
+        <h4>질문하기</h4>
+        <p>LLM이 wiki 합성 답변. 보존 가치 있으면 <code>analyses/</code>로.</p>
+      </div>
+      <div class="act">
+        <span class="ico">03 · LINT</span>
+        <h4>점검하기</h4>
+        <p>주기적으로 "wiki 점검해줘" → 고아·모순·stale 리포트.</p>
+      </div>
+      <div class="act">
+        <span class="ico">04 · STEER</span>
+        <h4>방향 잡기</h4>
+        <p><code>overview.md</code>의 열린 질문 갱신 → 다음 ingest 후보 결정.</p>
+      </div>
+    </div>
+
+    <div class="diagram" style="margin-top:22px">
+      <h3>주간 루틴</h3>
+      <p class="cap">월요일 오버뷰 확인으로 한 주 시작, 금요일 lint로 닫기</p>
+      <div class="mermaid">
+flowchart LR
+  MON["🗓 월요일<br/><small>overview.md + log.md 훑기<br/>→ 이번 주 ingest 대상 결정</small>"]:::d1
+  MID["📚 주중<br/><small>논문 1~2개 ingest<br/>즉시 query → analyses/ 축적</small>"]:::d2
+  FRI["🔎 금요일<br/><small>lint 1회<br/>overview 열린 질문 갱신</small>"]:::d3
+
+  MON --> MID --> FRI
+
+  classDef d1 fill:#0f1a1e,stroke:#22d3ee,color:#e6ebf2
+  classDef d2 fill:#1a1630,stroke:#a78bfa,color:#e6ebf2
+  classDef d3 fill:#1e1a0f,stroke:#fbbf24,color:#e6ebf2
+      </div>
+    </div>
+
+    <div class="scroll" style="margin-top:14px">
+      <table>
+        <thead>
+          <tr><th>파일</th><th>언제 보나</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>overview.md</code></td><td><b>매번 먼저.</b> wiki 조감도 + 현재 프레임 + 열린 질문</td></tr>
+          <tr><td><code>_meta/index.md</code></td><td>페이지 찾을 때. 카테고리별 카탈로그</td></tr>
+          <tr><td><code>concepts/Concept-*.md</code></td><td>개념 깊게 파고들 때 (VLA, Shortcut Learning)</td></tr>
+          <tr><td><code>sources/Source-*.md</code></td><td>특정 논문 요약 보고 싶을 때</td></tr>
+          <tr><td><code>entities/Entity-*.md</code></td><td>특정 모델·회사(π0, π0.7) 팩트 체크</td></tr>
+          <tr><td><code>_meta/log.md</code></td><td>"내가 최근에 뭘 했더라"</td></tr>
+          <tr><td>Obsidian <b>Graph View</b></td><td>연결 구조·허브·고아 페이지 시각 확인 (<code>path:07_LLM_WIKI</code> 필터)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 8. TAKEAWAYS -->
+  <section>
+    <div class="h2"><span class="num">08</span><h2>가져갈 만한 것 · Takeaways</h2></div>
+    <p class="lead">다른 도메인·다른 툴을 쓰더라도 적용가능한 설계 결정들.</p>
+    <ul class="tk">
+      <li><b>도메인을 고정하라.</b> 범용 wiki는 관리 비용이 폭발한다. "VLA 연구"처럼 좁은 도메인에 스키마를 박아두면 LLM 출력이 훨씬 안정된다.</li>
+      <li><b>파일명 prefix로 타입을 강제.</b> <code>Entity-</code>, <code>Concept-</code>, <code>Source-</code>, <code>Analysis-</code>. LLM이 실수로 category를 섞는 일이 없어진다.</li>
+      <li><b>세션 연속성용 상태 파일(<code>context.json</code>)을 둬라.</b> <code>index.md</code> + <code>log.md</code>만으로는 다음 세션이 맥락을 복원하기 어렵다. 구조화된 JSON 하나가 훨씬 안정적.</li>
+      <li><b>RAG가 아니라 "LLM이 유지하는 중간 산출물"로 생각하라.</b> 매 질문마다 재조합 ✗, 한 번 정제된 knowledge base에 질의 ✓.</li>
+      <li><b>기존 폴더를 raw source로 편입.</b> Zotero·연구 폴더를 복사하지 말고 <b>읽기 전용 참조</b>로만 써라. 중복·동기화 지옥을 피한다.</li>
+      <li><b>모순은 flag가 아니라 callout으로.</b> Obsidian <code>&gt; [!warning]</code> 같은 시각적 블록이 있으면 나중에 리뷰가 쉽다.</li>
+    </ul>
+  </section>
+
+  <!-- 8.5 IMPLEMENTED — READING & SEARCH LAYER -->
+  <section>
+    <div class="h2">
+      <span class="num">08·5</span>
+      <h2>Reading &amp; Search Layer
+        <span style="color:var(--good);font-size:14px;font-weight:500;margin-left:10px;border:1px solid rgba(52,211,153,.5);padding:2px 8px;border-radius:6px">✓ 구현 완료 · 2026-04-25</span>
+      </h2>
+    </div>
+    <p class="lead">"외부 publish"가 아니라 <b>내가 지금 뭘 보고 있는지 한눈에 잡히는 구조</b>를 우선 박았다. 핵심은 ① focus 상태 ② 빠른 검색 ③ "지금 어디"를 드러내는 입구 한 페이지.</p>
+
+    <div class="grid-3">
+      <div class="card" style="border-left:3px solid var(--good)">
+        <span class="role">① Focus state ✓</span>
+        <h3>"지금 보고 있는 것"</h3>
+        <p>
+          <code>_meta/now.md</code> (사람용) + <code>context.json</code>의 <code>focus</code> 필드 (LLM용) <b>이중화</b>.
+          세션 시작 시 LLM이 먼저 읽고, 종료 시 두 곳을 동기화 갱신.
+        </p>
+        <span class="pill">topic</span><span class="pill">active_reads[]</span><span class="pill">next_reads[]</span><span class="pill">todays_questions[]</span><span class="pill">pinned[]</span>
+      </div>
+      <div class="card" style="border-left:3px solid var(--good)">
+        <span class="role">② Search ✓</span>
+        <h3>3중 검색 구조</h3>
+        <p>
+          <b>Omnisearch</b> (퍼지·전문) + <b>Dataview</b> (frontmatter 쿼리) + <code>rg</code> (CLI 백업).
+          <code>type:concept tag:#wiki/vla updated:&gt;2026-04-01</code> 같은 메타 쿼리도 가능.
+        </p>
+        <span class="pill">Omnisearch</span><span class="pill">Dataview</span><span class="pill">ripgrep</span>
+      </div>
+      <div class="card" style="border-left:3px solid var(--good)">
+        <span class="role">③ Entry view ✓</span>
+        <h3><code>overview.md</code> = Dashboard</h3>
+        <p>
+          상단에 <b>Reading Dashboard</b> 섹션 신설. Dataview 블록 3개로 <b>최근 갱신 N개 · 모순 callout 페이지 · stale 30+일 페이지</b>를 자동 표시.
+        </p>
+        <span class="pill">최근 갱신</span><span class="pill">모순 callout</span><span class="pill">stale 30+일</span>
+      </div>
+    </div>
+
+    <div class="callout cyan" style="margin-top:18px">
+      <b>설계 원칙:</b> publish는 외부가 아니라 <b>나 자신을 위한 reading view</b>. 검색이 잘 되고 + "지금 보고 있는 것"이 명확하면 wiki는 저장소를 넘어 <b>능동적 reading desk</b>가 된다.
+    </div>
+
+    <div class="diagram" style="margin-top:18px">
+      <h3>Reading Dashboard 구조 (구현됨)</h3>
+      <p class="cap">3개 입구가 모두 <code>overview.md</code>로 수렴 · 세션 시작/종료 시 LLM이 갱신</p>
+      <div class="mermaid">
+flowchart TB
+  U["👤 나"]:::user
+
+  OV["📄 overview.md<br/><small>Reading Dashboard</small>"]:::hub
+
+  F1["🎯 _meta/now.md<br/><small>Focus · 사람용</small>"]:::f1
+  F2["🧠 context.json · focus<br/><small>Focus · LLM 구조화</small>"]:::f1
+  S["🔎 Omnisearch · Dataview · rg<br/><small>3중 검색</small>"]:::f2
+  D["📊 Dataview 블록<br/><small>최근 갱신 · 모순 · stale</small>"]:::f3
+
+  U --> OV
+  OV --> F1
+  OV --> S
+  OV --> D
+  F1 <-.->|"동기화"| F2
+
+  F2 -.->|"세션 시작 read"| L(["🤖 LLM"]):::llm
+  L -.->|"세션 종료 write"| F1
+  L -.->|"세션 종료 write"| F2
+  D -.->|"frontmatter 인덱스"| L
+
+  classDef user fill:#161c25,stroke:#6b7686,color:#e6ebf2
+  classDef hub fill:#0a2e1f,stroke:#34d399,stroke-width:2px,color:#e6ebf2
+  classDef f1 fill:#0f1a1e,stroke:#22d3ee,color:#e6ebf2
+  classDef f2 fill:#1a1630,stroke:#a78bfa,color:#e6ebf2
+  classDef f3 fill:#1e1a0f,stroke:#fbbf24,color:#e6ebf2
+  classDef llm fill:#0a2e1f,stroke:#34d399,color:#e6ebf2
+      </div>
+    </div>
+
+    <h3 style="margin:28px 0 10px;font-size:16px">변경된 파일</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>파일</th><th>변경 내용</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>_meta/now.md</code> <span class="pill" style="color:var(--good);border-color:var(--good)">신설</span></td>
+            <td>Active focus · Active reads · Next reads · 오늘의 질문 · Pinned · 세션 메모</td>
+          </tr>
+          <tr>
+            <td><code>_meta/context.json</code></td>
+            <td><code>focus</code> 필드 신설 (6개 키), <code>vault.now</code> 경로, <code>bootstrap_prompt</code> 갱신, version 3</td>
+          </tr>
+          <tr>
+            <td><code>overview.md</code></td>
+            <td>상단 <b>Reading Dashboard</b> 신설 — 입구 단축키 + Dataview 블록 3개 (최근 갱신 / 모순 callout / stale)</td>
+          </tr>
+          <tr>
+            <td><code>_schema/CLAUDE.md</code></td>
+            <td>§4.3 <b>Focus 워크플로우</b> 신설 · §6 검색 가이드 추가 · §7 context.json에 <code>focus</code> 키 명시 · 세션 시작/종료 프로토콜 갱신 · Lint 체크리스트 보강</td>
+          </tr>
+          <tr>
+            <td><code>HOWTO.md</code></td>
+            <td>내가 하는 일 4가지 → <b>5가지</b> (Focus 추가) · 우선순위 표 맨 위에 <code>now.md</code> + Omnisearch 추가</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout amber" style="margin-top:14px">
+      <b>수동 의존성:</b> Obsidian → <b>Settings → Community plugins</b>에서 <b>Dataview</b>(dashboard 블록 동작용) + <b>Omnisearch</b>(퍼지 전문 검색) 두 개만 설치하면 끝. 둘 다 무료.
+    </div>
+  </section>
+
+  <!-- 9. REFS -->
+  <section>
+    <div class="h2"><span class="num">09</span><h2>References &amp; Links</h2></div>
+    <div class="refs">
+      <a href="../../07_LLM_WIKI/overview.md">07_LLM_WIKI/overview.md — wiki 조감도</a>
+      <a href="../../07_LLM_WIKI/HOWTO.md">07_LLM_WIKI/HOWTO.md — 운영 가이드</a>
+      <a href="../../07_LLM_WIKI/_schema/CLAUDE.md">07_LLM_WIKI/_schema/CLAUDE.md — LLM 운영 규칙</a>
+      <a href="../../07_LLM_WIKI/_meta/index.md">07_LLM_WIKI/_meta/index.md — 페이지 카탈로그</a>
+      <a href="../../07_LLM_WIKI/_meta/log.md">07_LLM_WIKI/_meta/log.md — 활동 로그</a>
+      <a href="./Agent-claude-code.md">26Q2_P1/Agent-claude-code.md — 학습 노트 원본</a>
+    </div>
+    <p class="callout" style="margin-top:18px">
+      <b>원문 영감:</b> Karpathy의 "LLM-maintained markdown wiki" 패턴 (트위터·블로그 포스트).
+      이 문서는 원문 아이디어를 Obsidian + VLA 연구 도메인에 맞춰 구체화한 구현체를 설명한다.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <p>스냅샷 · 2026-04-23 &nbsp;·&nbsp; 문서 작성 · 2026-04-25 &nbsp;·&nbsp; chae / 26Q2_P1</p>
+  <p style="margin-top:6px">수치는 <code>_meta/context.json</code>에서 가져온 렌더링 시점 값이며 이후 ingest로 갱신됨.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      darkMode: true,
+      background: '#10151c',
+      primaryColor: '#1a1630',
+      primaryTextColor: '#e6ebf2',
+      primaryBorderColor: '#a78bfa',
+      lineColor: '#6b7686',
+      secondaryColor: '#0f1a1e',
+      tertiaryColor: '#1e1a0f',
+      fontFamily: '-apple-system,BlinkMacSystemFont,"Pretendard","Segoe UI",Roboto,sans-serif',
+      fontSize: '13px'
+    },
+    flowchart: {
+      curve: 'basis',
+      padding: 16,
+      useMaxWidth: true
+    }
+  });
+</script>
+
+</body>
+</html>
