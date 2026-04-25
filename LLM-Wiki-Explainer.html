@@ -19,12 +19,13 @@
     --good:#059669;
     --warn:#dc2626;
     --radius:14px;
-    --maxw:1080px;
+    --maxw:1180px;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
     font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Segoe UI",Roboto,"Apple SD Gothic Neo",sans-serif;
-    line-height:1.6;-webkit-font-smoothing:antialiased}
+    line-height:1.7;-webkit-font-smoothing:antialiased;
+    word-break:keep-all;overflow-wrap:break-word}
   code,.mono{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace}
   a{color:var(--accent);text-decoration:none;border-bottom:1px dashed rgba(8,145,178,.4)}
   a:hover{color:#0e7490;border-bottom-color:#0e7490}
@@ -51,7 +52,7 @@
     background:linear-gradient(90deg,#0f172a 0%,#475569 100%);
     -webkit-background-clip:text;background-clip:text;color:transparent;
   }
-  .lede{font-size:clamp(16px,2vw,20px);color:var(--text-2);max-width:820px;margin:0 0 28px}
+  .lede{font-size:clamp(16px,2vw,20px);color:var(--text-2);margin:0 0 28px}
   .lede strong{color:var(--text)}
   .meta-row{display:flex;flex-wrap:wrap;gap:12px 28px;color:var(--muted);font-size:14px}
   .meta-row span b{color:var(--text-2);font-weight:500}
@@ -84,7 +85,7 @@
     padding:2px 8px;border-radius:6px
   }
   .h2 h2{font-size:clamp(22px,3vw,30px);margin:0;letter-spacing:-.01em}
-  .lead{color:var(--text-2);max-width:780px;margin:-4px 0 24px}
+  .lead{color:var(--text-2);margin:-4px 0 24px}
 
   /* CARDS */
   .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
@@ -191,7 +192,7 @@
 <header class="hero">
   <div class="wrap hero-inner">
     <span class="eyebrow">26Q2 · Personal Knowledge System</span>
-    <h1 class="title">07_LLM_WIKI<br/><span style="color:var(--text-2);font-weight:500;font-size:.55em">— LLM이 관리하는 내 연구 위키</span></h1>
+    <h1 class="title">LLM_WIKI<br/><span style="color:var(--text-2);font-weight:500;font-size:.55em">— LLM이 관리하는 연구 위키</span></h1>
     <p class="lede">
       "문서를 찾는" 방식(RAG)이 아니라,
       <strong>LLM이 편집자·사서 역할을 하며 markdown wiki를 계속 갱신</strong>해 두는 운영 방식.
@@ -237,6 +238,11 @@
 
 <main class="wrap">
 
+  <!-- 0. 왜 시작?  -->
+  <section>
+    <div class="h2"><span class="num">00</span><h2>왜 시작하게 되었는가</h2></div>
+    <p class="lead">문서의 재사용성을 높이고 싶었음. 쓸 때 없는 공간을 버리고 싶었음. 연구 도메인에 맞춰 시각화를 하고 아이디어를 얻고 싶었음</p>
+    </section>
   <!-- 1. WHY -->
   <section>
     <div class="h2"><span class="num">01</span><h2>왜 위키인가 — RAG와 뭐가 다른가</h2></div>
@@ -349,7 +355,7 @@ flowchart LR
   classDef s3 fill:#f5f3ff,stroke:#7c3aed,color:#0f172a
   classDef s4 fill:#fffbeb,stroke:#d97706,color:#0f172a
   classDef check fill:#fef2f2,stroke:#dc2626,color:#0f172a
-  classDef warn fill:#fee2e2,stroke:#dc2626,color:#fee2e2
+  classDef warn fill:#fee2e2,stroke:#dc2626,color:#0f172a
       </div>
     </div>
   </section>
