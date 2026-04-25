@@ -6,18 +6,18 @@
 <title>Generalist AI — Company Brief</title>
 <style>
   :root{
-    --bg:#0a0d12;
-    --bg-2:#10151c;
-    --bg-3:#161c25;
-    --line:#222a36;
-    --text:#e6ebf2;
-    --text-2:#a6b1c2;
-    --muted:#6b7686;
-    --accent:#22d3ee;       /* cyan — 데이터/모델 */
-    --accent-2:#fbbf24;     /* amber — 강조 수치 */
-    --accent-3:#a78bfa;     /* purple — method */
-    --good:#34d399;
-    --warn:#f87171;
+    --bg:#ffffff;
+    --bg-2:#f8fafc;
+    --bg-3:#f1f5f9;
+    --line:#e2e8f0;
+    --text:#0f172a;
+    --text-2:#475569;
+    --muted:#64748b;
+    --accent:#0891b2;       /* cyan — 데이터/모델 */
+    --accent-2:#d97706;     /* amber — 강조 수치 */
+    --accent-3:#7c3aed;     /* purple — method */
+    --good:#059669;
+    --warn:#dc2626;
     --radius:14px;
     --maxw:1080px;
   }
@@ -26,8 +26,8 @@
     font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Segoe UI",Roboto,"Apple SD Gothic Neo",sans-serif;
     line-height:1.6;-webkit-font-smoothing:antialiased}
   code,.mono{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace}
-  a{color:var(--accent);text-decoration:none;border-bottom:1px dashed rgba(34,211,238,.4)}
-  a:hover{color:#67e8f9;border-bottom-color:#67e8f9}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px dashed rgba(8,145,178,.4)}
+  a:hover{color:#0e7490;border-bottom-color:#0e7490}
 
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
 
@@ -35,21 +35,21 @@
   header.hero{
     position:relative;overflow:hidden;
     background:
-      radial-gradient(1200px 600px at 80% -10%, rgba(34,211,238,.18), transparent 60%),
-      radial-gradient(900px 500px at 10% 110%, rgba(167,139,250,.18), transparent 60%),
-      linear-gradient(180deg, #0b1118, #0a0d12);
+      radial-gradient(1200px 600px at 80% -10%, rgba(8,145,178,.18), transparent 60%),
+      radial-gradient(900px 500px at 10% 110%, rgba(124,58,237,.18), transparent 60%),
+      linear-gradient(180deg, #f8fafc, #ffffff);
     border-bottom:1px solid var(--line);
   }
   .hero-inner{padding:64px 24px 48px}
   .eyebrow{
     display:inline-block;color:var(--accent);font-size:12px;letter-spacing:.18em;
-    text-transform:uppercase;border:1px solid rgba(34,211,238,.4);
+    text-transform:uppercase;border:1px solid rgba(8,145,178,.4);
     padding:4px 10px;border-radius:999px;margin-bottom:18px
   }
   h1.title{
     font-size:clamp(36px,6vw,68px);line-height:1.05;margin:0 0 16px;
     letter-spacing:-.02em;font-weight:800;
-    background:linear-gradient(90deg,#fff 0%,#a6b1c2 100%);
+    background:linear-gradient(90deg,#0f172a 0%,#475569 100%);
     -webkit-background-clip:text;background-clip:text;color:transparent;
   }
   .lede{font-size:clamp(16px,2vw,20px);color:var(--text-2);max-width:780px;margin:0 0 28px}
@@ -64,7 +64,7 @@
   }
   @media (max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
   .stat{
-    background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
+    background:linear-gradient(180deg,rgba(15,23,42,.03),rgba(15,23,42,.01));
     border:1px solid var(--line);border-radius:var(--radius);
     padding:18px 18px 16px;
   }
@@ -78,7 +78,7 @@
   .h2{display:flex;align-items:baseline;gap:14px;margin:0 0 24px}
   .h2 .num{
     font-family:ui-monospace,monospace;color:var(--accent);
-    font-size:14px;letter-spacing:.05em;border:1px solid rgba(34,211,238,.4);
+    font-size:14px;letter-spacing:.05em;border:1px solid rgba(8,145,178,.4);
     padding:2px 8px;border-radius:6px
   }
   .h2 h2{font-size:clamp(22px,3vw,30px);margin:0;letter-spacing:-.01em}
@@ -162,18 +162,18 @@
   .refs{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px}
   @media (max-width:760px){.refs{grid-template-columns:1fr}}
   .refs a{font-size:13.5px;display:block;padding:6px 0;border-bottom:0}
-  .refs a:hover{color:#67e8f9}
+  .refs a:hover{color:#0e7490}
 
   footer{padding:36px 24px 60px;text-align:center;color:var(--muted);font-size:12.5px}
   footer a{color:var(--text-2);border:none}
 
   .callout{
-    border-left:3px solid var(--accent-3);background:rgba(167,139,250,.06);
+    border-left:3px solid var(--accent-3);background:rgba(124,58,237,.06);
     padding:14px 16px;border-radius:0 10px 10px 0;color:var(--text-2);font-size:14px
   }
   .callout b{color:var(--text)}
   .quote{
-    border-left:3px solid var(--accent-2);background:rgba(251,191,36,.06);
+    border-left:3px solid var(--accent-2);background:rgba(217,119,6,.06);
     padding:14px 16px;border-radius:0 10px 10px 0;color:var(--text);font-size:15px;
     font-style:italic
   }
@@ -344,16 +344,16 @@
       <svg viewBox="0 0 880 320" role="img" aria-label="classification tree">
         <defs>
           <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M0,0 L10,5 L0,10 z" fill="#6b7686"/>
+            <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
           </marker>
           <style>
-            .nbox{fill:#161c25;stroke:#222a36}
-            .nlabel{fill:#e6ebf2;font:600 13px -apple-system,sans-serif}
-            .nsub{fill:#a6b1c2;font:11.5px -apple-system,sans-serif}
-            .edge{stroke:#6b7686;stroke-width:1.5;fill:none}
-            .elabel{fill:#a6b1c2;font:11px ui-monospace,monospace}
-            .hi{stroke:#22d3ee;fill:rgba(34,211,238,.08)}
-            .hi .nlabel{fill:#22d3ee}
+            .nbox{fill:#f1f5f9;stroke:#e2e8f0}
+            .nlabel{fill:#0f172a;font:600 13px -apple-system,sans-serif}
+            .nsub{fill:#475569;font:11.5px -apple-system,sans-serif}
+            .edge{stroke:#64748b;stroke-width:1.5;fill:none}
+            .elabel{fill:#475569;font:11px ui-monospace,monospace}
+            .hi{stroke:#0891b2;fill:rgba(8,145,178,.08)}
+            .hi .nlabel{fill:#0891b2}
           </style>
         </defs>
 
@@ -408,14 +408,14 @@
       <svg viewBox="0 0 880 220" role="img" aria-label="harmonic reasoning token stream">
         <defs>
           <style>
-            .lane{fill:#10151c;stroke:#222a36}
-            .lane-l{fill:#a6b1c2;font:600 12px ui-monospace,monospace}
-            .tok-s{fill:#22d3ee}
-            .tok-a{fill:#a78bfa}
-            .toklabel{fill:#0a0d12;font:600 11px ui-monospace,monospace}
-            .axis{stroke:#6b7686;stroke-width:1}
-            .axisl{fill:#6b7686;font:11px ui-monospace,monospace}
-            .arrow{stroke:#fbbf24;stroke-width:1.5;fill:none;stroke-dasharray:3 3}
+            .lane{fill:#f8fafc;stroke:#e2e8f0}
+            .lane-l{fill:#475569;font:600 12px ui-monospace,monospace}
+            .tok-s{fill:#0891b2}
+            .tok-a{fill:#7c3aed}
+            .toklabel{fill:#ffffff;font:600 11px ui-monospace,monospace}
+            .axis{stroke:#64748b;stroke-width:1}
+            .axisl{fill:#64748b;font:11px ui-monospace,monospace}
+            .arrow{stroke:#d97706;stroke-width:1.5;fill:none;stroke-dasharray:3 3}
           </style>
         </defs>
 
@@ -515,14 +515,14 @@
       <svg viewBox="0 0 880 320" role="img" aria-label="scaling law phase transition">
         <defs>
           <style>
-            .ax{stroke:#6b7686;stroke-width:1}
-            .axl{fill:#a6b1c2;font:11px ui-monospace,monospace}
-            .grid{stroke:#222a36;stroke-width:1;stroke-dasharray:2 4}
-            .c1{stroke:#f87171;stroke-width:2.5;fill:none}
-            .c6{stroke:#fbbf24;stroke-width:2.5;fill:none}
-            .c7{stroke:#22d3ee;stroke-width:3;fill:none}
-            .c10{stroke:#a78bfa;stroke-width:2.5;fill:none}
-            .lbl{fill:#e6ebf2;font:600 12px -apple-system,sans-serif}
+            .ax{stroke:#64748b;stroke-width:1}
+            .axl{fill:#475569;font:11px ui-monospace,monospace}
+            .grid{stroke:#e2e8f0;stroke-width:1;stroke-dasharray:2 4}
+            .c1{stroke:#dc2626;stroke-width:2.5;fill:none}
+            .c6{stroke:#d97706;stroke-width:2.5;fill:none}
+            .c7{stroke:#0891b2;stroke-width:3;fill:none}
+            .c10{stroke:#7c3aed;stroke-width:2.5;fill:none}
+            .lbl{fill:#0f172a;font:600 12px -apple-system,sans-serif}
           </style>
         </defs>
 
@@ -545,23 +545,23 @@
 
         <!-- 1B: ossifies (flat after early descent) -->
         <path d="M100,90 C 200,150 280,180 360,200 S 600,210 800,212" class="c1"/>
-        <text x="660" y="208" class="lbl" fill="#f87171">1B · ossification</text>
+        <text x="660" y="208" class="lbl" fill="#dc2626">1B · ossification</text>
 
         <!-- 6B: improves but plateau -->
         <path d="M100,80 C 220,130 320,160 460,170 S 700,162 800,158" class="c6"/>
-        <text x="660" y="152" class="lbl" fill="#fbbf24">6B · multi-task</text>
+        <text x="660" y="152" class="lbl" fill="#d97706">6B · multi-task</text>
 
         <!-- 7B+: clean power law -->
         <path d="M100,70 C 240,110 380,90 520,80 S 740,68 800,60" class="c7"/>
-        <text x="640" y="55" class="lbl" fill="#22d3ee">7B+ · transfer 가능</text>
+        <text x="640" y="55" class="lbl" fill="#0891b2">7B+ · transfer 가능</text>
 
         <!-- 10B+ -->
         <path d="M100,60 C 240,95 380,75 520,60 S 740,48 800,40" class="c10"/>
-        <text x="640" y="36" class="lbl" fill="#a78bfa">10B+ · 검증된 상한</text>
+        <text x="640" y="36" class="lbl" fill="#7c3aed">10B+ · 검증된 상한</text>
 
         <!-- threshold band -->
-        <rect x="370" y="40" width="60" height="220" fill="rgba(34,211,238,.06)" stroke="rgba(34,211,238,.3)" stroke-dasharray="3 3"/>
-        <text x="400" y="32" text-anchor="middle" class="axl" fill="#22d3ee">7B threshold</text>
+        <rect x="370" y="40" width="60" height="220" fill="rgba(8,145,178,.06)" stroke="rgba(8,145,178,.3)" stroke-dasharray="3 3"/>
+        <text x="400" y="32" text-anchor="middle" class="axl" fill="#0891b2">7B threshold</text>
       </svg>
 
       <div class="grid-2" style="margin-top:8px">

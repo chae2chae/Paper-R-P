@@ -6,15 +6,15 @@
 <title>Paper-R-P — Publish</title>
 <style>
   :root{
-    --bg:#0a0d12;
-    --bg-2:#10151c;
-    --bg-3:#161c25;
-    --line:#222a36;
-    --text:#e6ebf2;
-    --text-2:#a6b1c2;
-    --muted:#6b7686;
-    --accent:#7cc4ff;
-    --accent-2:#9bff8f;
+    --bg:#ffffff;
+    --bg-2:#f8fafc;
+    --bg-3:#f1f5f9;
+    --line:#e2e8f0;
+    --text:#0f172a;
+    --text-2:#475569;
+    --muted:#64748b;
+    --accent:#0969da;
+    --accent-2:#059669;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Pretendard","Noto Sans KR",sans-serif;-webkit-font-smoothing:antialiased}
@@ -26,7 +26,7 @@
   .grid{display:grid;grid-template-columns:1fr;gap:16px;margin-top:40px}
   @media (min-width:720px){.grid{grid-template-columns:1fr 1fr}}
   .card{display:block;background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:24px;text-decoration:none;color:var(--text);transition:border-color .15s ease, transform .15s ease, background .15s ease}
-  .card:hover{border-color:#3a4a63;background:var(--bg-3);transform:translateY(-1px)}
+  .card:hover{border-color:#cbd5e1;background:var(--bg-3);transform:translateY(-1px)}
   .card .tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
   .card h2{font-size:20px;margin:0 0 8px;letter-spacing:-0.01em}
   .card p{color:var(--text-2);font-size:14px;line-height:1.6;margin:0}
@@ -39,24 +39,23 @@
 <body>
   <div class="wrap">
     <header>
-      <div class="eyebrow">Paper-R-P · Publish Branch</div>
-      <h1>Research Briefs</h1>
-      <p class="sub">로봇/VLA/LLM 연구의 회사별·주제별 브리프 모음. 각 페이지는 단일 HTML로 빌드되어 별도 의존성 없이 열람할 수 있습니다.</p>
+      <div class="eyebrow">26_P1_Project</div>
+      <h1>26_P1_Project</h1>
     </header>
 
     <div class="grid">
       <a class="card" href="./Company-GeneralistAI.html">
-        <div class="tag">Company Brief</div>
+        <div class="tag">W18 - Company Brief</div>
         <h2>Generalist AI</h2>
         <p>Generalist AI 회사 개요와 기술/팀/투자 관점 정리.</p>
-        <div class="more">열람하기 →</div>
+        <!-- <div class="more">열람하기 →</div> -->
       </a>
 
       <a class="card" href="./LLM-Wiki-Explainer.html">
-        <div class="tag">Concept Explainer</div>
+        <div class="tag">W18 - Agent Brief</div>
         <h2>LLM_WIKI — LLM이 관리하는 연구 위키</h2>
         <p>LLM이 자율적으로 관리·갱신하는 연구 위키 시스템에 대한 설명.</p>
-        <div class="more">열람하기 →</div>
+        <!-- <div class="more">열람하기 →</div> -->
       </a>
     </div>
 

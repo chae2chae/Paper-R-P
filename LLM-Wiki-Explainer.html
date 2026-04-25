@@ -6,18 +6,18 @@
 <title>LLM_WIKI — LLM이 관리하는 연구 위키</title>
 <style>
   :root{
-    --bg:#0a0d12;
-    --bg-2:#10151c;
-    --bg-3:#161c25;
-    --line:#222a36;
-    --text:#e6ebf2;
-    --text-2:#a6b1c2;
-    --muted:#6b7686;
-    --accent:#22d3ee;       /* cyan */
-    --accent-2:#fbbf24;     /* amber */
-    --accent-3:#a78bfa;     /* purple */
-    --good:#34d399;
-    --warn:#f87171;
+    --bg:#ffffff;
+    --bg-2:#f8fafc;
+    --bg-3:#f1f5f9;
+    --line:#e2e8f0;
+    --text:#0f172a;
+    --text-2:#475569;
+    --muted:#64748b;
+    --accent:#0891b2;       /* cyan */
+    --accent-2:#d97706;     /* amber */
+    --accent-3:#7c3aed;     /* purple */
+    --good:#059669;
+    --warn:#dc2626;
     --radius:14px;
     --maxw:1080px;
   }
@@ -26,29 +26,29 @@
     font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Segoe UI",Roboto,"Apple SD Gothic Neo",sans-serif;
     line-height:1.6;-webkit-font-smoothing:antialiased}
   code,.mono{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace}
-  a{color:var(--accent);text-decoration:none;border-bottom:1px dashed rgba(34,211,238,.4)}
-  a:hover{color:#67e8f9;border-bottom-color:#67e8f9}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px dashed rgba(8,145,178,.4)}
+  a:hover{color:#0e7490;border-bottom-color:#0e7490}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
 
   /* HERO */
   header.hero{
     position:relative;overflow:hidden;
     background:
-      radial-gradient(1200px 600px at 80% -10%, rgba(34,211,238,.18), transparent 60%),
-      radial-gradient(900px 500px at 10% 110%, rgba(167,139,250,.18), transparent 60%),
-      linear-gradient(180deg, #0b1118, #0a0d12);
+      radial-gradient(1200px 600px at 80% -10%, rgba(8,145,178,.18), transparent 60%),
+      radial-gradient(900px 500px at 10% 110%, rgba(124,58,237,.18), transparent 60%),
+      linear-gradient(180deg, #f8fafc, #ffffff);
     border-bottom:1px solid var(--line);
   }
   .hero-inner{padding:64px 24px 48px}
   .eyebrow{
     display:inline-block;color:var(--accent);font-size:12px;letter-spacing:.18em;
-    text-transform:uppercase;border:1px solid rgba(34,211,238,.4);
+    text-transform:uppercase;border:1px solid rgba(8,145,178,.4);
     padding:4px 10px;border-radius:999px;margin-bottom:18px
   }
   h1.title{
     font-size:clamp(32px,5.6vw,60px);line-height:1.08;margin:0 0 16px;
     letter-spacing:-.02em;font-weight:800;
-    background:linear-gradient(90deg,#fff 0%,#a6b1c2 100%);
+    background:linear-gradient(90deg,#0f172a 0%,#475569 100%);
     -webkit-background-clip:text;background-clip:text;color:transparent;
   }
   .lede{font-size:clamp(16px,2vw,20px);color:var(--text-2);max-width:820px;margin:0 0 28px}
@@ -67,7 +67,7 @@
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:36px 0 0}
   @media (max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
   .stat{
-    background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
+    background:linear-gradient(180deg,rgba(15,23,42,.03),rgba(15,23,42,.01));
     border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 16px;
   }
   .stat .num{font-size:clamp(24px,3vw,30px);font-weight:700;color:var(--accent-2);letter-spacing:-.01em}
@@ -80,7 +80,7 @@
   .h2{display:flex;align-items:baseline;gap:14px;margin:0 0 18px;flex-wrap:wrap}
   .h2 .num{
     font-family:ui-monospace,monospace;color:var(--accent);
-    font-size:14px;letter-spacing:.05em;border:1px solid rgba(34,211,238,.4);
+    font-size:14px;letter-spacing:.05em;border:1px solid rgba(8,145,178,.4);
     padding:2px 8px;border-radius:6px
   }
   .h2 h2{font-size:clamp(22px,3vw,30px);margin:0;letter-spacing:-.01em}
@@ -111,7 +111,7 @@
   th{background:var(--bg-3);color:var(--text-2);font-weight:600;font-size:12px;
     letter-spacing:.05em;text-transform:uppercase}
   tr:last-child td{border-bottom:none}
-  td code{color:var(--accent);background:rgba(34,211,238,.08);padding:1px 6px;border-radius:4px;font-size:12.5px}
+  td code{color:var(--accent);background:rgba(8,145,178,.08);padding:1px 6px;border-radius:4px;font-size:12.5px}
   .scroll{overflow-x:auto}
 
   /* diagram frames */
@@ -140,14 +140,14 @@
 
   /* callouts */
   .callout{
-    border-left:3px solid var(--accent-3);background:rgba(167,139,250,.06);
+    border-left:3px solid var(--accent-3);background:rgba(124,58,237,.06);
     padding:14px 16px;border-radius:0 10px 10px 0;color:var(--text-2);font-size:14px
   }
   .callout b{color:var(--text)}
-  .callout.amber{border-color:var(--accent-2);background:rgba(251,191,36,.06)}
-  .callout.cyan{border-color:var(--accent);background:rgba(34,211,238,.06)}
+  .callout.amber{border-color:var(--accent-2);background:rgba(217,119,6,.06)}
+  .callout.cyan{border-color:var(--accent);background:rgba(8,145,178,.06)}
   .quote{
-    border-left:3px solid var(--accent-2);background:rgba(251,191,36,.06);
+    border-left:3px solid var(--accent-2);background:rgba(217,119,6,.06);
     padding:14px 16px;border-radius:0 10px 10px 0;color:var(--text);font-size:15px;
     font-style:italic;margin:0 0 18px
   }
@@ -282,11 +282,11 @@ flowchart LR
   B -->|"질의 응답"| U
   U -->|"질문"| L
 
-  classDef raw fill:#0f1a1e,stroke:#22d3ee,stroke-width:1.5px,color:#e6ebf2
-  classDef wiki fill:#1a1630,stroke:#a78bfa,stroke-width:1.5px,color:#e6ebf2
-  classDef schema fill:#1e1a0f,stroke:#fbbf24,stroke-width:1.5px,color:#e6ebf2
-  classDef user fill:#161c25,stroke:#6b7686,color:#e6ebf2
-  classDef llm fill:#0a2e1f,stroke:#34d399,stroke-width:2px,color:#e6ebf2
+  classDef raw fill:#ecfeff,stroke:#0891b2,stroke-width:1.5px,color:#0f172a
+  classDef wiki fill:#f5f3ff,stroke:#7c3aed,stroke-width:1.5px,color:#0f172a
+  classDef schema fill:#fffbeb,stroke:#d97706,stroke-width:1.5px,color:#0f172a
+  classDef user fill:#f1f5f9,stroke:#64748b,color:#0f172a
+  classDef llm fill:#ecfdf5,stroke:#059669,stroke-width:2px,color:#0f172a
       </div>
     </div>
     <p class="callout">
@@ -344,12 +344,12 @@ flowchart LR
   X -- "no" --> M
   W --> M
 
-  classDef s1 fill:#0f1a1e,stroke:#22d3ee,color:#e6ebf2
-  classDef s2 fill:#0a2e1f,stroke:#34d399,color:#e6ebf2
-  classDef s3 fill:#1a1630,stroke:#a78bfa,color:#e6ebf2
-  classDef s4 fill:#1e1a0f,stroke:#fbbf24,color:#e6ebf2
-  classDef check fill:#2a1f1f,stroke:#f87171,color:#e6ebf2
-  classDef warn fill:#3a2020,stroke:#f87171,color:#fecaca
+  classDef s1 fill:#ecfeff,stroke:#0891b2,color:#0f172a
+  classDef s2 fill:#ecfdf5,stroke:#059669,color:#0f172a
+  classDef s3 fill:#f5f3ff,stroke:#7c3aed,color:#0f172a
+  classDef s4 fill:#fffbeb,stroke:#d97706,color:#0f172a
+  classDef check fill:#fef2f2,stroke:#dc2626,color:#0f172a
+  classDef warn fill:#fee2e2,stroke:#dc2626,color:#fee2e2
       </div>
     </div>
   </section>
@@ -396,13 +396,13 @@ flowchart LR
   EXT --> P4
   EXT -.->|"LLM이 읽음"| R
 
-  classDef root fill:#0a2e1f,stroke:#34d399,stroke-width:2px,color:#e6ebf2
-  classDef meta fill:#0f1a1e,stroke:#22d3ee,color:#e6ebf2
-  classDef page fill:#1a1630,stroke:#a78bfa,color:#e6ebf2
-  classDef raw fill:#1a1a1a,stroke:#6b7686,color:#e6ebf2
-  classDef entry fill:#1e1a0f,stroke:#fbbf24,color:#e6ebf2
-  classDef ext fill:#161c25,stroke:#6b7686,color:#a6b1c2,stroke-dasharray:4 3
-  classDef extItem fill:#10151c,stroke:#222a36,color:#6b7686
+  classDef root fill:#ecfdf5,stroke:#059669,stroke-width:2px,color:#0f172a
+  classDef meta fill:#ecfeff,stroke:#0891b2,color:#0f172a
+  classDef page fill:#f5f3ff,stroke:#7c3aed,color:#0f172a
+  classDef raw fill:#f1f5f9,stroke:#64748b,color:#0f172a
+  classDef entry fill:#fffbeb,stroke:#d97706,color:#0f172a
+  classDef ext fill:#f1f5f9,stroke:#64748b,color:#475569,stroke-dasharray:4 3
+  classDef extItem fill:#f8fafc,stroke:#e2e8f0,color:#64748b
       </div>
     </div>
 
@@ -542,12 +542,12 @@ flowchart TD
   D4 --> A1
   D4 --> A2
 
-  classDef hub fill:#0a2e1f,stroke:#34d399,stroke-width:2px,color:#e6ebf2
-  classDef d1 fill:#0f1a1e,stroke:#22d3ee,color:#e6ebf2
-  classDef d2 fill:#1a1630,stroke:#a78bfa,color:#e6ebf2
-  classDef d3 fill:#2a1f1f,stroke:#f87171,color:#fecaca
-  classDef d4 fill:#1e1a0f,stroke:#fbbf24,color:#e6ebf2
-  classDef page fill:#10151c,stroke:#222a36,color:#a6b1c2,stroke-width:1px
+  classDef hub fill:#ecfdf5,stroke:#059669,stroke-width:2px,color:#0f172a
+  classDef d1 fill:#ecfeff,stroke:#0891b2,color:#0f172a
+  classDef d2 fill:#f5f3ff,stroke:#7c3aed,color:#0f172a
+  classDef d3 fill:#fef2f2,stroke:#dc2626,color:#fee2e2
+  classDef d4 fill:#fffbeb,stroke:#d97706,color:#0f172a
+  classDef page fill:#f8fafc,stroke:#e2e8f0,color:#475569,stroke-width:1px
       </div>
     </div>
 
@@ -587,12 +587,12 @@ flowchart TD
   POL --> C3
   POL --> C4
 
-  classDef pre fill:#0a2e1f,stroke:#34d399,color:#e6ebf2
-  classDef prior fill:#0f1a1e,stroke:#22d3ee,color:#e6ebf2
-  classDef core fill:#1a1630,stroke:#a78bfa,stroke-width:2px,color:#e6ebf2
-  classDef mod fill:#1e1a0f,stroke:#fbbf24,color:#e6ebf2,stroke-dasharray:3 2
-  classDef deploy fill:#161c25,stroke:#6b7686,color:#e6ebf2
-  classDef axis fill:#10151c,stroke:#222a36,color:#a6b1c2
+  classDef pre fill:#ecfdf5,stroke:#059669,color:#0f172a
+  classDef prior fill:#ecfeff,stroke:#0891b2,color:#0f172a
+  classDef core fill:#f5f3ff,stroke:#7c3aed,stroke-width:2px,color:#0f172a
+  classDef mod fill:#fffbeb,stroke:#d97706,color:#0f172a,stroke-dasharray:3 2
+  classDef deploy fill:#f1f5f9,stroke:#64748b,color:#0f172a
+  classDef axis fill:#f8fafc,stroke:#e2e8f0,color:#475569
       </div>
     </div>
 
@@ -654,9 +654,9 @@ flowchart LR
 
   MON --> MID --> FRI
 
-  classDef d1 fill:#0f1a1e,stroke:#22d3ee,color:#e6ebf2
-  classDef d2 fill:#1a1630,stroke:#a78bfa,color:#e6ebf2
-  classDef d3 fill:#1e1a0f,stroke:#fbbf24,color:#e6ebf2
+  classDef d1 fill:#ecfeff,stroke:#0891b2,color:#0f172a
+  classDef d2 fill:#f5f3ff,stroke:#7c3aed,color:#0f172a
+  classDef d3 fill:#fffbeb,stroke:#d97706,color:#0f172a
       </div>
     </div>
 
@@ -697,7 +697,7 @@ flowchart LR
     <div class="h2">
       <span class="num">08·5</span>
       <h2>Reading &amp; Search Layer
-        <span style="color:var(--good);font-size:14px;font-weight:500;margin-left:10px;border:1px solid rgba(52,211,153,.5);padding:2px 8px;border-radius:6px">✓ 구현 완료 · 2026-04-25</span>
+        <span style="color:var(--good);font-size:14px;font-weight:500;margin-left:10px;border:1px solid rgba(5,150,105,.5);padding:2px 8px;border-radius:6px">✓ 구현 완료 · 2026-04-25</span>
       </h2>
     </div>
     <p class="lead">"외부 publish"가 아니라 <b>내가 지금 뭘 보고 있는지 한눈에 잡히는 구조</b>를 우선 박았다. 핵심은 ① focus 상태 ② 빠른 검색 ③ "지금 어디"를 드러내는 입구 한 페이지.</p>
@@ -760,12 +760,12 @@ flowchart TB
   L -.->|"세션 종료 write"| F2
   D -.->|"frontmatter 인덱스"| L
 
-  classDef user fill:#161c25,stroke:#6b7686,color:#e6ebf2
-  classDef hub fill:#0a2e1f,stroke:#34d399,stroke-width:2px,color:#e6ebf2
-  classDef f1 fill:#0f1a1e,stroke:#22d3ee,color:#e6ebf2
-  classDef f2 fill:#1a1630,stroke:#a78bfa,color:#e6ebf2
-  classDef f3 fill:#1e1a0f,stroke:#fbbf24,color:#e6ebf2
-  classDef llm fill:#0a2e1f,stroke:#34d399,color:#e6ebf2
+  classDef user fill:#f1f5f9,stroke:#64748b,color:#0f172a
+  classDef hub fill:#ecfdf5,stroke:#059669,stroke-width:2px,color:#0f172a
+  classDef f1 fill:#ecfeff,stroke:#0891b2,color:#0f172a
+  classDef f2 fill:#f5f3ff,stroke:#7c3aed,color:#0f172a
+  classDef f3 fill:#fffbeb,stroke:#d97706,color:#0f172a
+  classDef llm fill:#ecfdf5,stroke:#059669,color:#0f172a
       </div>
     </div>
 
@@ -835,14 +835,14 @@ flowchart TB
     startOnLoad: true,
     theme: 'base',
     themeVariables: {
-      darkMode: true,
-      background: '#10151c',
-      primaryColor: '#1a1630',
-      primaryTextColor: '#e6ebf2',
-      primaryBorderColor: '#a78bfa',
-      lineColor: '#6b7686',
-      secondaryColor: '#0f1a1e',
-      tertiaryColor: '#1e1a0f',
+      darkMode: false,
+      background: '#ffffff',
+      primaryColor: '#f5f3ff',
+      primaryTextColor: '#0f172a',
+      primaryBorderColor: '#7c3aed',
+      lineColor: '#94a3b8',
+      secondaryColor: '#ecfeff',
+      tertiaryColor: '#fffbeb',
       fontFamily: '-apple-system,BlinkMacSystemFont,"Pretendard","Segoe UI",Roboto,sans-serif',
       fontSize: '13px'
     },
