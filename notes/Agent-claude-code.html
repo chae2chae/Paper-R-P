@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>claude-code — 26Q2_P1</title>
+  <link rel="stylesheet" href="../style.css"/>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="top">
+      <a href="../index.html">26Q2_P1</a>
+      <span class="sep">·</span>
+      <a href="../weekly/index.html" class="active">weekly</a>
+      <a href="../company-insight/index.html">company-insight</a>
+      <a href="../agent-wiki/index.html">agent-wiki</a>
+    </nav>
+
+    <header class="note-header">
+      <div class="eyebrow">Agent · W17 · agent <span class="editorial-source draft">draft</span></div>
+      <h1>claude-code</h1>
+    </header>
+    <article class="note-body">
+<ul>
+<li>그냥 “위키처럼 생긴 문서 모음”이 아니라,  <strong>LLM이 지속적으로 읽고, 정리하고, 업데이트하는 개인용/팀용 지식 베이스 운영 방식</strong></li>
+<li>LLM에 문서를 넣으면 <strong>RAG 방식</strong>으로 동작 -> 질문이 들어올때마다 관련 문서 조각을 다시 찾아와서 그때 그때 답변을 만듦 -> 매번 지식을 처음부터 다시 조합해야해서 축적이 안됨 </li>
+</ul>
+<h5>LLM wiki의 아이디어</h5>
+<p>문서를 그냥 질의 시점에 검색하는 게 아니라, <strong>새 소스가 들어올 때마다 LLM이 그 내용을 기존 위키에 통합</strong>한다. 예를 들면:</p>
+<ul>
+<li>새 문서를 읽고</li>
+<li>핵심 내용을 뽑고</li>
+<li>기존 주제 페이지를 수정하고</li>
+<li>관련 엔티티 페이지를 업데이트하고</li>
+<li>이전 주장과 충돌하면 그 모순도 표시하고</li>
+<li>교차 링크까지 정리하는 식이야.   즉 지식이 질문마다 재생성되는 게 아니라, <strong>한 번 정리되어 계속 누적되는 중간 산출물(wiki)</strong>이 생김</li>
+</ul>
+<p><strong>“raw documents → LLM-maintained wiki → user query”</strong></p>
+<p>즉 사용자는 원문만 들고 직접 정리하지 않고,   LLM이 그 사이에서 <strong>구조화된 마크다운 위키를 계속 유지보수</strong>하는 역할을 맡는다.   사용자는 소스를 넣고 질문하고 방향을 잡고,   LLM은 요약, 분류, 링크 연결, 페이지 수정, 기록 유지 같은 “잡무”를 담당하는 구</p>
+<h5>구조</h5>
+<ul>
+<li><strong>Raw sources</strong>   논문, 기사, 이미지, 데이터 같은 원본 자료. 수정하지 않는 source of truth.</li>
+<li><strong>The wiki</strong>   LLM이 만드는 마크다운 페이지 모음. 요약, 개념 페이지, 엔티티 페이지, 비교 페이지 등.</li>
+<li><strong>The schema</strong>   AGENTS.md, CLAUDE.md 같은 운영 규칙 문서. 위키를 어떤 구조로 만들고, 새 자료를 받으면 어떻게 반영하고, 질문에 어떻게 답할지 정하는 규칙.</li>
+</ul>
+<h5>운영방식</h5>
+<ul>
+<li><strong>Ingest</strong>: 새 자료를 넣으면 LLM이 읽고 위키 여러 페이지를 갱신</li>
+<li><strong>Query</strong>: 질문에 답할 때 위키를 읽고 합성해서 답변</li>
+<li><strong>Lint</strong>: 위키가 커지면 모순, 고아 페이지, stale claim, 빠진 링크 같은 걸 점</li>
+</ul>
+<p><strong>LLM이 지식 저장소의 편집자 + 사서 + 유지보수자 역할을 하는 패턴</strong> => 노트와 지식의 재사용이 가능한 구조 그리고 그 재사용이 단순히 거기서 검색하는 것이 아니라 애초에 한번 정제된 데이터가 있고, 거기에서 query 가능하게    </p>
+<h2>LLM wiki vs My LLM wiki</h2>
+<ul>
+<li>어떻게 사용하는가? <a class="wl wl-broken" href="#" title="아직 없는 노트">HOWTO</a></li>
+</ul>
+<p>Karpathy 원문은 "패턴"이고, 내 wiki(<a class="wl wl-broken" href="#" title="아직 없는 노트">07_LLM_WIKI</a>)는 그걸 VLA 연구 도메인에 맞춰 구체화한 "구현체"다. 원문은 의도적으로 추상적 — "LLM이 maintain하는 markdown wiki"라는 아이디어만 전달. 내 wiki는 Obsidian 볼트 + VLA 연구용으로 규칙을 박아놓은 버전.</p>
+<h2>1. 구조의 구체화 정도</h2>
+<table><thead><tr><th>항목</th><th>Karpathy 원문</th><th>My wiki</th></tr></thead><tbody><tr><td>디렉토리</td><td>3 layer (raw/wiki/schema) — 추상</td><td><code>_meta/</code>, <code>_schema/</code>, <code>entities/</code>, <code>concepts/</code>, <code>sources/</code>, <code>analyses/</code>, <code>raw/</code>, <code>overview.md</code> — 고정</td></tr><tr><td>페이지 유형</td><td>예시만 (entity, concept, summary, comparison)</td><td><code>Entity-</code>, <code>Concept-</code>, <code>Source-</code>, <code>Analysis-</code> prefix 강제</td></tr><tr><td>Frontmatter</td><td>언급 없음 (Dataview 얘기 정도)</td><td>YAML frontmatter 필수 (<code>type</code>, <code>sources</code>, <code>updated</code> 등)</td></tr><tr><td>링크 규칙</td><td>"cross-references가 생긴다" 정도</td><td><strong>페이지당 최소 2개 <code>[[]]</code> 링크 강제</strong></td></tr></tbody></table>
+<h2>2. Obsidian 볼트 통합 (내가 추가한 것)</h2>
+<p>Karpathy 원문은 wiki를 독립 리포로 가정. 나는 <code>01_Research/</code>, <code>02_Papers/</code>, <code>03_Ideas/</code>, <code>05_Archive/</code>를 <strong>읽기 전용 raw source</strong>로 편입시키고 <code>07_LLM_WIKI/raw/</code>는 "기존 폴더에 없는 것만"으로 분리. 기존 Zotero + 연구 볼트 자산을 재활용하려는 현실적 설계.</p>
+<h2>3. <code>_meta/context.json</code> (내 고유 레이어)</h2>
+<p>Karpathy 버전엔 <strong>없음</strong>. 원문은 <code>index.md</code> + <code>log.md</code> 두 개뿐. 나는 세션 간 연속성을 위해 <code>context.json</code>을 추가해서 <code>wiki_stats</code>, <code>ingested_sources</code>, <code>pending_sources</code>, <code>open_questions</code>, <code>session_log</code>, <code>bootstrap_prompt</code>까지 상태로 박아놓음 — 세션 시작/종료 시 읽고 쓰는 프로토콜을 schema에 명문화.</p>
+<h2>4. 모순 처리 방식</h2>
+<p>원문은 "contradictions를 flag한다"고만 서술. 나는 <code>&gt; [!warning] 모순</code> Obsidian callout 포맷으로 구체화.</p>
+<h2>5. 도메인 고정 vs 범용</h2>
+<p>원문은 personal/research/book/business 등 여러 예시를 나열. 내 wiki는 VLA 아키텍처·Online RL·Sim2Real·일반화 실패로 <strong>도메인이 고정</strong>되어 있고, <code>overview.md</code>에 도메인별 프레임 다이어그램까지 박아둠.</p>
+<h2>한 줄 요약</h2>
+<ul>
+<li><strong>Karpathy</strong>: <em>"LLM이 유지하는 markdown wiki"</em> — idea file.</li>
+<li><strong>My wiki</strong>: <em>그걸 Obsidian + VLA 연구 + 세션 상태 관리까지 얹은 실제 운영 시스템.</em></li>
+</ul>
+<p>원문 대비 <strong>더 엄격한 쪽</strong>으로 간 부분 — 링크 최소 2개 강제, frontmatter 필수, 파일명 prefix, context.json 상태 파일. 원문 대비 <strong>덜 챙긴 부분</strong> — Marp 슬라이드·차트 같은 출력 형식 다양화, qmd 같은 검색 CLI는 아직 미도입 (index.md 기반).</p>
+<blockquote><p>📘 실제 운용 방법(역할 분담·주요 파일·주간 루틴)은 별도 문서로 분리: <a class="wl wl-broken" href="#" title="아직 없는 노트">07_LLM_WIKI/HOWTO.md</a></p></blockquote>
+<h2>claude-code</h2>
+<h2>목표</h2>
+<ul>
+<li>what is the claude code? </li>
+<li>how claude code works?</li>
+</ul>
+<h2>핵심 개념</h2>
+<ul>
+<li>Claude code == AI Agent 
+<ul>
+<li>Cladue code 는 코드베이스를 이해하고, 파일을 편집하고, 명령을 실행하며, 기존 개발자 도구와 통합하여 작업을 더 빠르게 완료할 수 있도록 지원하는 에이전트 기반 코딩 도구임</li>
+</ul></li>
+<li>Agent
+<ul>
+<li>주변과 상호작용하고 정의된 목표를 달성하기 위해 행동을 수행할 수 있는 소프트웨어임 </li>
+</ul></li>
+<li>Claude code 의 작동방식 
+<ul>
+<li> <span class="missing-asset" title="자산 누락">🚫 [missing: Pasted image 20260416182730.png]</span></li>
+<li>Context : 대화 내용, 파일내용, 명령 출력등을 저장하고 참조할 수 있는 양을 결정하는 Context windows 를 가짐 <span class="missing-asset" title="자산 누락">🚫 [missing: Pasted image 20260416183041.png]</span></li>
+<li>Tools</li>
+<li>Permissions <span class="missing-asset" title="자산 누락">🚫 [missing: Pasted image 20260416183417.png]</span></li>
+</ul></li>
+</ul>
+<h2>실습/구현</h2>
+<ul>
+<li>agent 에서 permission 범위를 설정하고 </li>
+</ul>
+<h2>배운 점</h2>
+<ul>
+<li>내가 가이드라인을 가지고 있고 그에 대해서 셋팅을 하여 사용해야함</li>
+</ul>
+<h2>References</h2>
+<ul>
+<li></li>
+</ul>
+<p> 요약: 제가 대화에서 배운 것 → 파일로 저장 → 새 대화에서도 기억. /memory로 직접 확인/수정 가능.</p>
+    </article>
+
+    <footer>
+      <span>26Q2_P1 · publish_new (orphan branch)</span>
+      <span>Paper-R-P</span>
+    </footer>
+  </div>
+</body>
+</html>

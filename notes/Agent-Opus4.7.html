@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Opus4.7 — 26Q2_P1</title>
+  <link rel="stylesheet" href="../style.css"/>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="top">
+      <a href="../index.html">26Q2_P1</a>
+      <span class="sep">·</span>
+      <a href="../weekly/index.html" class="active">weekly</a>
+      <a href="../company-insight/index.html">company-insight</a>
+      <a href="../agent-wiki/index.html">agent-wiki</a>
+    </nav>
+
+    <header class="note-header">
+      <div class="eyebrow">Agent · W19 · agent <span class="editorial-source draft">draft</span></div>
+      <h1>Opus4.7</h1>
+    </header>
+    <article class="note-body">
+<h2>목표</h2>
+<ul>
+<li>아래를 읽고 어떻게 명령을 내리는 것이 맞는지 고민하기 </li>
+<li>https://claude.com/blog/best-practices-for-using-claude-opus-4-7-with-claude-code?utm_source=www.therundown.ai&utm_medium=newsletter&utm_campaign=meta-superintelligence-labs-ships-its-first-model&_bhlid=61476c123b24854cc36482bc4699fe80c499705b  아티클 읽고 -> P1
+<ul>
+<li>[ ] https://platform.claude.com/docs/ko/build-with-claude/prompt-engineering/claude-prompting-best-practices</li>
+<li>[ ] https://claude.com/blog/using-claude-code-session-management-and-1m-context?utm_source=www.therundown.ai&utm_medium=newsletter&utm_campaign=meta-superintelligence-labs-ships-its-first-model&_bhlid=61476c123b24854cc36482bc4699fe80c499705b</li>
+</ul></li>
+</ul>
+<h2>핵심 개념</h2>
+<ol>
+<li>첫번째 작업 턴에서 명확하게 정의하기 의도, 제약 조건, 승인 기준 및 관련 파일 위치를 포함하는 잘 정의된 작업 설명은 더 나은 결과를 도출하기 위한 맥락을 제공함 </li>
+<li>사용자 상호작용 횟수를 줄이기</li>
+<li>적절한 경우 "자동모드" 사용 shift +tab 으로 가능</li>
+<li>완료된 작업에 대한 알림 설정 -> 작업이 완료되면 소리를 재생하도록 요청하면, claude 는 후크 기반 알림 생성 </li>
+</ol>
+<h2>실습/구현</h2>
+<p>low, medium, high, xhigh, max는 Claude Code의 추론 노력(Effort) 수준입니다. 설정 방법</p>
+<ol>
+<li>슬래시 명령어 (가장 간단) /effort high /effort xhigh 인자 없이 /effort만 입력하면 대화형 선택창이 뜹니다. <span class="missing-asset" title="자산 누락">🚫 [missing: Pasted image 20260427203138.png]</span></li>
+<li>settings.json { "effortLevel": "xhigh" }</li>
+<li>환경 변수 : export CLAUDE_CODE_EFFORT_LEVEL=xhigh</li>
+<li>CLI 플래그 : claude --effort high</li>
+</ol>
+<p>레벨별 특징</p>
+<ul>
+<li>low: 빠른 응답, 간단 작업</li>
+<li>medium: 기본값, 일반 개발</li>
+<li>high: 복잡한 디버깅/리팩토링</li>
+<li>xhigh: Opus 4.7 전용 (코딩 작업 권장)</li>
+<li>max: 최대 추론 (현재 세션만, 비용 높음)</li>
+</ul>
+<p>▎ 모델별 지원 레벨이 다릅니다. Opus 4.6 / Sonnet 4.6은 xhigh를 지원하지  않습니다. 현재 사용 중인 Opus 4.7은 모든 레벨 지원.  참고: <a href="https://code.claude.com/docs/en/model-config">Model configuration 문서</a></p>
+<p>Subagent 제어 </p>
+<pre class="code"><code class="lang-">Do not spawn a subagent for work you can complete directly in a single response (e.g. refactoring a function you can already see).
+Spawn multiple subagents in the same turn when fanning out across items or reading multiple files.
+
+단일 응답에서 직접 완료할 수 있는 작업에 대해 서브에이전트를 생성하지 마세요(예: 이미 볼 수 있는 함수 리팩토링).
+
+항목 전체에 걸쳐 팬아웃하거나 여러 파일을 읽을 때 같은 턴에서 여러 서브에이전트를 생성하세요.
+</code></pre>
+<p>코드 검토 하네스 </p>
+<pre class="code"><code class="lang-">Report every issue you find, including ones you are uncertain about or consider low-severity. Do not filter for importance or confidence at this stage - a separate verification step will do that. Your goal here is coverage: it is better to surface a finding that later gets filtered out than to silently drop a real bug. For each finding, include your confidence level and an estimated severity so a downstream filter can rank them.
+
+당신이 발견한 모든 문제를 보고하세요, 당신이 불확실하거나 낮은 심각도로 간주하는 것들을 포함하여. 이 단계에서 중요도나 신뢰도에 대해 필터링하지 마세요 - 별도의 검증 단계가 그렇게 할 것입니다. 당신의 목표는 여기서 범위입니다: 나중에 필터링되는 발견을 표면화하는 것이 조용히 실제 버그를 떨어뜨리는 것보다 낫습니다. 각 발견에 대해 당신의 신뢰 수준과 다운스트림 필터가 순위를 매길 수 있도록 추정된 심각도를 포함하세요.</code></pre>
+<p>example tag </p>
+<pre class="code"><code class="lang-">&lt;examples&gt; &lt;example&gt; &lt;example&gt;&lt;/examples&gt;
+
+ex : 
+
+다음 이메일을 &quot;긴급/일반/스팸&quot; 중 하나로 분류해줘.
+
+&lt;examples&gt;
+&lt;example&gt;
+입력: &quot;내일까지 보고서 제출 부탁드립니다&quot;
+출력: 긴급
+&lt;/example&gt;
+
+&lt;example&gt;
+입력: &quot;점심 같이 드실래요?&quot;
+출력: 일반
+&lt;/example&gt;
+
+&lt;example&gt;
+입력: &quot;축하합니다! 1억원에 당첨되셨습니다&quot;
+출력: 스팸
+&lt;/example&gt;
+&lt;/examples&gt;
+
+&lt;input&gt;
+{여기에 분류할 실제 이메일 넣기}
+&lt;/input&gt;</code></pre>
+<ul>
+<li><strong>태그 이름은 자유</strong>: <code>&lt;example&gt;</code>, <code>&lt;sample&gt;</code>, <code>&lt;demo&gt;</code> 뭐든 됩니다. 일관성만 있으면 됨</li>
+<li><strong>그냥 텍스트로 쓰면 됨</strong>: 별도의 코드나 라이브러리 필요 없음</li>
+<li><strong>3~5개 예시가 적정</strong>: 너무 적으면 패턴 학습이 안 되고, 너무 많으면 토큰 낭비</li>
+<li><strong>API로 보내든 채팅창에 쓰든 동일</strong>: 어느 쪽이든 그냥 프롬프트 텍스트의 일부</li>
+</ul>
+<p>명시적인 지침 내리기  Claude의 최신 모델은 정확한 지침 따르기를 위해 훈련되었으며 특정 도구를 사용하기 위한 명시적 지시로부터 이점을 얻습니다. "몇 가지 변경을 제안할 수 있습니까?"라고 말하면, Claude는 때때로 변경을 구현하는 것이 당신이 의도한 것일 수 있음에도 불구하고 제안만 제공할 것입니다.</p>
+<p>Claude가 조치를 취하려면, 더 명시적이세요:</p>
+<h3>예제: 명시적 지침</h3>
+<p><strong>덜 효과적(Claude는 제안만 할 것입니다):</strong></p>
+<pre class="code"><code class="lang-">이 함수를 개선하기 위해 몇 가지 변경을 제안할 수 있습니까?</code></pre>
+<p><strong>더 효과적(Claude는 변경을 할 것입니다):</strong></p>
+<pre class="code"><code class="lang-">이 함수를 변경하여 성능을 개선하세요.</code></pre>
+<p>또는:</p>
+<pre class="code"><code class="lang-">인증 흐름에 이러한 편집을 하세요.</code></pre>
+<p>Claude가 기본적으로 조치를 취하는 것에 더 적극적이 되도록 하려면, 당신의 시스템 프롬프트에 다음을 추가할 수 있습니다:</p>
+<p>적극적인 조치를 위한 샘플 프롬프트</p>
+<pre class="code"><code class="lang-">&lt;default_to_action&gt;
+기본적으로 제안만 하는 대신 변경을 구현하세요. 사용자의 의도가 불명확하면, 가장 유용한 가능성 있는 조치를 추론하고 진행하며, 추측하는 대신 도구를 사용하여 누락된 세부 사항을 발견하세요. 도구 호출(예: 파일 편집 또는 읽기)이 의도되었는지 여부에 대한 사용자의 의도를 추론하고 그에 따라 행동하세요.
+&lt;/default_to_action&gt;</code></pre>
+<p>반면에, 모델이 기본적으로 더 주저하고, 구현으로 바로 뛰어드는 경향이 적고, 요청된 경우에만 조치를 취하기를 원한다면, 다음과 같은 프롬프트로 이 동작을 조종할 수 있습니다:</p>
+<p>보수적인 조치를 위한 샘플 프롬프트</p>
+<pre class="code"><code class="lang-">&lt;do_not_act_before_instructions&gt;
+변경을 명확하게 지시하지 않는 한 구현이나 파일 변경으로 뛰어들지 마세요. 사용자의 의도가 모호할 때, 정보 제공, 연구, 권장 사항 제공보다는 조치를 취하는 것을 기본값으로 하세요. 사용자가 명시적으로 편집, 수정, 또는 구현을 요청할 때만 진행하세요.
+&lt;/do_not_act_before_instructions&gt;</code></pre>
+<p>Claude Opus 4.5와 Claude Opus 4.6은 또한 이전 모델보다 시스템 프롬프트에 더 반응합니다. 당신의 프롬프트가 도구 또는 스킬에 대한 과소 트리거를 줄이도록 설계되었다면, 이 모델은 이제 과도하게 트리거할 수 있습니다. 해결책은 공격적인 언어를 다시 조정하는 것입니다. "CRITICAL: You MUST use this tool when..."이라고 말했을 수도 있지만, "Use this tool when..."과 같은 더 정상적인 프롬프팅을 사용할 수 있습니다.</p>
+<p>병렬 도구 호출 최적화  Claude의 최신 모델은 병렬 도구 실행에 탁월합니다. 이러한 모델은 다음을 수행합니다:</p>
+<ul>
+<li>연구 중 여러 추측 검색 실행</li>
+<li>여러 파일을 동시에 읽어 컨텍스트를 더 빠르게 구축</li>
+<li>bash 명령을 병렬로 실행 (시스템 성능을 병목으로 만들 수도 있음)</li>
+</ul>
+<p>이 동작은 쉽게 조정할 수 있습니다. 모델은 프롬프트 없이도 병렬 도구 호출에서 높은 성공률을 가지지만, 이를 ~100%로 높이거나 공격성 수준을 조정할 수 있습니다:</p>
+<p>최대 병렬 효율을 위한 샘플 프롬프트</p>
+<pre class="code"><code class="lang-">&lt;use_parallel_tool_calls&gt;
+여러 도구를 호출하려고 하고 도구 호출 간에 종속성이 없는 경우, 모든 독립적인 도구 호출을 병렬로 수행하세요. 작업을 순차적으로 수행하기보다는 병렬로 수행할 수 있을 때마다 도구를 동시에 호출하는 것을 우선시하세요. 예를 들어, 3개의 파일을 읽을 때 3개의 도구 호출을 병렬로 실행하여 3개의 파일을 모두 동시에 컨텍스트로 읽으세요. 속도와 효율성을 높이기 위해 가능한 한 병렬 도구 호출의 사용을 최대화하세요. 그러나 일부 도구 호출이 매개변수와 같은 종속 값을 알려주기 위해 이전 호출에 종속된 경우, 이러한 도구를 병렬로 호출하지 말고 대신 순차적으로 호출하세요. 도구 호출에서 자리 표시자를 사용하거나 누락된 매개변수를 추측하지 마세요.
+&lt;/use_parallel_tool_calls&gt;</code></pre>
+<p>병렬 실행을 줄이기 위한 샘플 프롬프트</p>
+<pre class="code"><code class="lang-">안정성을 보장하기 위해 각 단계 사이에 짧은 일시 중지를 두고 작업을 순차적으로 실행하세요.</code></pre>
+<p>#### </p>
+<p>상태 관리 모범 사례</p>
+<ul>
+<li><strong>상태 데이터에 구조화된 형식을 사용하세요</strong>: 구조화된 정보 (테스트 결과 또는 작업 상태 등)를 추적할 때, JSON 또는 기타 구조화된 형식을 사용하여 Claude가 스키마 요구 사항을 이해하도록 도우세요</li>
+<li><strong>진행 상황 메모에 비구조화된 텍스트를 사용하세요</strong>: 자유 형식 진행 상황 메모는 일반적인 진행 상황 및 컨텍스트 추적에 적합합니다</li>
+<li><strong>상태 추적에 git을 사용하세요</strong>: Git은 수행된 작업의 로그와 복원할 수 있는 체크포인트를 제공합니다. Claude의 최신 모델은 여러 세션에 걸쳐 상태를 추적하기 위해 git을 사용하는 데 특히 잘 수행됩니다.</li>
+<li><strong>증분 진행을 강조하세요</strong>: Claude에 진행 상황을 추적하고 증분 작업에 집중하도록 명시적으로 요청하세요</li>
+</ul>
+<h5>예제: 상태 추적</h5>
+<pre class="code"><code class="lang-">// 구조화된 상태 파일 (tests.json)
+{
+  &quot;tests&quot;: [
+    { &quot;id&quot;: 1, &quot;name&quot;: &quot;authentication_flow&quot;, &quot;status&quot;: &quot;passing&quot; },
+    { &quot;id&quot;: 2, &quot;name&quot;: &quot;user_management&quot;, &quot;status&quot;: &quot;failing&quot; },
+    { &quot;id&quot;: 3, &quot;name&quot;: &quot;api_endpoints&quot;, &quot;status&quot;: &quot;not_started&quot; }
+  ],
+  &quot;total&quot;: 200,
+  &quot;passing&quot;: 150,
+  &quot;failing&quot;: 25,
+  &quot;not_started&quot;: 25
+}</code></pre>
+<pre class="code"><code class="lang-">// 진행 상황 메모 (progress.txt)
+세션 3 진행 상황:
+- 인증 토큰 검증 수정
+- 엣지 케이스를 처리하도록 사용자 모델 업데이트
+- 다음: user_management 테스트 실패 조사 (테스트 #2)
+- 참고: 누락되거나 버그가 있는 기능으로 이어질 수 있으므로 테스트를 제거하지 마세요</code></pre>
+<h5>Context</h5>
+<ul>
+<li><strong>Continue</strong> — send another message in the same session</li>
+<li><strong><code>/rewind</code> (esc esc)</strong> — jump back to a previous message and try again from there</li>
+<li><strong><code>/clear</code></strong> — start a new session, usually with a brief you've distilled from what you just learned</li>
+<li><strong>Compact</strong> — summarize the session so far and keep going on top of the summary</li>
+<li><strong>Subagents</strong> — delegate the next chunk of work to an agent with its own clean context, and only pull its result back in</li>
+</ul>
+<h2>배운 점</h2>
+<ul>
+<li></li>
+</ul>
+<h2>References</h2>
+<ul>
+<li></li>
+</ul>
+<h2>Agent team (Orchestrate)</h2>
+<p>https://code.claude.com/docs/en/agent-teams</p>
+    </article>
+
+    <footer>
+      <span>26Q2_P1 · publish_new (orphan branch)</span>
+      <span>Paper-R-P</span>
+    </footer>
+  </div>
+</body>
+</html>

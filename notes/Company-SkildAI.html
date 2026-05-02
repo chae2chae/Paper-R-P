@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>SkildAI — 26Q2_P1</title>
+  <link rel="stylesheet" href="../style.css"/>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="top">
+      <a href="../index.html">26Q2_P1</a>
+      <span class="sep">·</span>
+      <a href="../weekly/index.html" class="active">weekly</a>
+      <a href="../company-insight/index.html">company-insight</a>
+      <a href="../agent-wiki/index.html">agent-wiki</a>
+    </nav>
+
+    <header class="note-header">
+      <div class="eyebrow">Company · W21 · company <span class="editorial-source curated">curated</span></div>
+      <h1>SkildAI</h1>
+      <p class="lead">Skild Brain 단일 omni-bodied 모델 + 인간 비디오 사전학습 1,000× + NVIDIA/Foxconn/ABB 산업 양산 라인 직진</p>
+    </header>
+    <div class="hero-meta">
+      <div class="meta-row">
+        <span class="meta-label">Concepts</span>
+        <div class="chips"><a class="chip k-Concept broken" href="./Concept-HumanVideoPretraining.html">HumanVideoPretraining</a><a class="chip k-Concept broken" href="./Concept-CuriosityDriven.html">CuriosityDriven</a></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Paradigms</span>
+        <div class="chips"><a class="chip k-Paradigm broken" href="./Paradigm-VLA.html">VLA</a><a class="chip k-Paradigm broken" href="./Paradigm-CrossEmbodiment.html">CrossEmbodiment</a><a class="chip k-Paradigm broken" href="./Paradigm-IndustrialDeploy.html">IndustrialDeploy</a></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Data Methods</span>
+        <div class="chips"><a class="chip k-DataMethod broken" href="./DataMethod-HumanVideo.html">HumanVideo</a><a class="chip k-DataMethod broken" href="./DataMethod-Teleop.html">Teleop</a></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Target Tasks</span>
+        <div class="chips"><span class="pill industrial-manipulation">industrial-manipulation</span><span class="pill security-inspection">security-inspection</span><span class="pill packing">packing</span><span class="pill mobile-manipulation">mobile-manipulation</span></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Robots</span>
+        <div class="chips"><span class="pill embodiment-agnostic (omni-bodied: 휴머노이드/사족/암)">embodiment-agnostic (omni-bodied: 휴머노이드/사족/암)</span></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Openness</span>
+        <div class="chips"><span class="pill openness-blog">blog</span></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Partners</span>
+        <div class="chips"><span class="pill NVIDIA">NVIDIA</span><span class="pill Foxconn">Foxconn</span><span class="pill ABB">ABB</span><span class="pill Universal Robots">Universal Robots</span><span class="pill Teradyne MiR">Teradyne MiR</span></div>
+      </div>
+    </div>
+    <article class="note-body">
+<div class="lead">"한 두뇌로 모든 로봇을 모든 작업에." Pittsburgh/CMU 기반 omni-bodied 로봇 foundation model 회사. <strong>Skild Brain</strong> 단일 모델로 휴머노이드·사족·산업용 암 모두 제어. 인간 비디오 사전학습 + 텔레op 후학습. NVIDIA/Foxconn 산업 양산 라인 직진.</div>
+<div class="grid-3">
+  <div class="stat">
+    <div class="num">~$2B+</div>
+    <div class="lbl">누적 투자</div>
+    <div class="sub">2024 Series A $300M → 2026-01 Series C $1.4B</div>
+  </div>
+  <div class="stat">
+    <div class="num">$14B+</div>
+    <div class="lbl">밸류에이션</div>
+    <div class="sub">2026-01 Series C 시점</div>
+  </div>
+  <div class="stat">
+    <div class="num">~24+</div>
+    <div class="lbl">2024-11 팀</div>
+    <div class="sub">2025년 폭발적 확장 — CMU + FAIR 출신 코어</div>
+  </div>
+</div>
+<div class="h2-numbered"><span class="num">01</span><h2>Founders &amp; Team</h2></div>
+<div class="grid-2">
+  <div class="card">
+    <div class="role">CEO · CO-FOUNDER</div>
+    <h3>Deepak Pathak</h3>
+    <p>ex-CMU 교수, UC Berkeley PhD, ex-FAIR. VisageMap 창업 경험.</p>
+    <span class="pill">Curiosity-Driven RL</span>
+    <span class="pill">Self-supervised pretrain</span>
+    <p><em>Curiosity-Driven Exploration by Self-Supervised Prediction</em> (ICML 2017, 인용 4,000+) 저자.</p>
+  </div>
+  <div class="card">
+    <div class="role">PRESIDENT · CO-FOUNDER</div>
+    <h3>Abhinav Gupta</h3>
+    <p>ex-CMU 로보틱스 교수, ex-Meta FAIR research director, UMD PhD.</p>
+    <span class="pill">Manipulation</span>
+    <span class="pill">Visual representation learning</span>
+    <p>매니퓰레이션·로코모션·내비게이션 분야 인용 75,000+. Pathak과 약 10년간 공동 창업 논의 후 2023년 실행.</p>
+  </div>
+</div>
+<div class="h2-numbered"><span class="num">02</span><h2>Product — Skild Brain</h2></div>
+<div class="lead">단일 omni-bodied foundation model. "경쟁 모델 대비 1,000배 데이터" 클레임 (인간 행동 비디오 + 텔레op).</div>
+<div class="grid-2">
+  <div class="card">
+    <h3>제품 라인업</h3>
+    <ul>
+      <li><strong>Skild Brain</strong> — 범용 로봇 foundation model (omni-bodied)</li>
+      <li><strong>Mobile Manipulation Platform</strong> — grasping/handover/navigation API</li>
+      <li><strong>Security/Inspection Robot Platform</strong> — 비정형·위험 환경 자율 순찰</li>
+      <li><strong>Autonomous Packing</strong> — 반복 정밀 작업</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>주요 디플로이</h3>
+    <ul>
+      <li><strong>NVIDIA Blackwell GPU</strong> 생산 라인 (Foxconn, Houston TX)</li>
+      <li>Dual-arm 정밀 조립 (산업 양산)</li>
+      <li>창발적 행동 보고 — 장애물 회피, 미끄러짐 시 그립 적응</li>
+    </ul>
+    <p class="lead">하드웨어 비종속 — 자체 로봇은 만들지 않음. 휴머노이드/사족/암 모두 동일 가중치로 제어.</p>
+  </div>
+</div>
+<div class="h2-numbered"><span class="num">03</span><h2>Method — 인간 비디오 + Cross-Embodiment</h2></div>
+<div class="grid-3">
+  <div class="stat">
+    <div class="num">1,000×</div>
+    <div class="lbl">데이터 양 클레임</div>
+    <div class="sub">대비 경쟁 모델 (자체 마케팅)</div>
+  </div>
+  <div class="stat">
+    <div class="num">3종+</div>
+    <div class="lbl">embodiment</div>
+    <div class="sub">휴머노이드 / 사족 / 산업 암</div>
+  </div>
+  <div class="stat">
+    <div class="num">5+</div>
+    <div class="lbl">산업 파트너</div>
+    <div class="sub">NVIDIA · Foxconn · ABB · UR · Teradyne MiR</div>
+  </div>
+</div>
+<h3>학습 파이프라인</h3>
+<div class="pipeline">
+  <div class="stage"><strong>Stage 1</strong><div class="kind">Pretrain</div>대규모 인터넷 인간 행동 비디오</div>
+  <div class="stage"><strong>Stage 2</strong><div class="kind">Robot post-train</div>텔레op 데이터로 후학습</div>
+  <div class="stage"><strong>Stage 3</strong><div class="kind">Cross-embodiment</div>단일 가중치 → 다양한 로봇</div>
+  <div class="stage"><strong>Stage 4</strong><div class="kind">Industrial deploy</div>NVIDIA/Foxconn 라인 직진</div>
+</div>
+<h3>비즈니스 모델 (Contrary Research 정리)</h3>
+<ul>
+  <li><strong>API 사용량 과금</strong> — 로봇 어플리케이션이 모델 호출</li>
+  <li><strong>Fine-tuning 서비스</strong> — 산업 고객 맞춤 적응</li>
+  <li><strong>라이선싱</strong> — 제3자 로봇 제품에 임베드</li>
+</ul>
+<h3>학술 자산 → 회사 자산 (Lineage)</h3>
+<ul class="timeline">
+  <li class="tl-item">
+    <div class="date">2017</div>
+    <div class="ev">Pathak — <a class="wl wl-broken" href="#" title="아직 없는 노트">Concept-CuriosityDriven</a> (ICML)</div>
+    <div class="desc">Curiosity-Driven Exploration. Self-supervised RL 계보의 시작점.</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2018-2022</div>
+    <div class="ev">Gupta — Visual representation learning (PIRL, MoCo 협업)</div>
+    <div class="desc">Manipulation 비전 표현 학습 다수 논문.</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2023-05</div>
+    <div class="ev">Skild AI 설립</div>
+    <div class="desc">Pittsburgh / CMU 인접. 두 사람의 학술 자산이 회사 thesis로.</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2024-07</div>
+    <div class="ev">Series A $300M ($1.5B 밸류)</div>
+    <div class="desc">Lightspeed · Coatue · SoftBank · Bezos 리드.</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2025</div>
+    <div class="ev">SoftBank 추가 $500M ($4B 밸류)</div>
+    <div class="desc">+ NVIDIA/Foxconn 산업 통합 시작.</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2026-01</div>
+    <div class="ev">Series C $1.4B ($14B+ 밸류)</div>
+    <div class="desc">로봇 FM 분야 본격적 자본 사이클 진입.</div>
+  </li>
+</ul>
+<div class="h2-numbered"><span class="num">04</span><h2>경쟁사 대비 차별점</h2></div>
+<table>
+  <thead>
+    <tr><th>축</th><th>GeneralistAI</th><th>Physical Intelligence</th><th>Sunday</th><th>Skild</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>데이터</td>
+      <td>자체 wearable 50만h (+ Sunday 그리퍼 조달)</td>
+      <td>텔레op + OXE + wearable co-train</td>
+      <td>$200 글러브 × 2,000개 · 10M ep</td>
+      <td><strong>인간 비디오 1차 + 텔레op</strong></td>
+    </tr>
+    <tr>
+      <td>모델 출발점</td>
+      <td>From-scratch physical FM</td>
+      <td>VLM(PaliGemma) + flow matching</td>
+      <td>ACT-1 (zero robot data)</td>
+      <td><strong>비공개 (인간 비디오 사전학습 강조)</strong></td>
+    </tr>
+    <tr>
+      <td>모델 공개</td>
+      <td>블로그</td>
+      <td>오픈소스 (openpi) + 논문</td>
+      <td>데모 + 보도</td>
+      <td><strong>클로즈드</strong></td>
+    </tr>
+    <tr>
+      <td>하드웨어</td>
+      <td>자체 그리퍼 + 산업 암</td>
+      <td>Embodiment-agnostic</td>
+      <td>자체 wheeled + telescoping</td>
+      <td><strong>Embodiment-agnostic (omni-bodied)</strong></td>
+    </tr>
+    <tr>
+      <td>GTM</td>
+      <td>데모 → 파트너</td>
+      <td>모델 라이선싱 (생태계)</td>
+      <td>B2C 가정 베타</td>
+      <td><strong>NVIDIA/Foxconn 산업 직진</strong></td>
+    </tr>
+    <tr>
+      <td>거점</td>
+      <td>Bay + Boston (MIT)</td>
+      <td>SF (Berkeley/Stanford)</td>
+      <td>Mountain View (Stanford)</td>
+      <td><strong>Pittsburgh (CMU)</strong></td>
+    </tr>
+  </tbody>
+</table>
+<div class="lead">→ Skild는 <strong>산업 deploy 속도</strong>로 차별화. 같은 "soft-only + 어그노스틱" 포지션의 PI와 GTM이 정반대 — PI는 오픈소스+논문 중심, Skild는 클로즈드+산업 파트너십 중심.</div>
+<div class="h2-numbered"><span class="num">05</span><h2>My Takeaway</h2></div>
+<ul>
+<li><strong>인간 비디오 사전학습 = "데이터 문제 우회"의 한 정통 방법</strong> — Pathak의 self-supervised + curiosity 계보가 그대로 회사 도메인. 학계 논문 → 회사 thesis 직결 사례.</li>
+<li><strong>omni-bodied 마케팅</strong> — cross-embodiment를 단일 슬로건으로 제품화. PI도 같은 길이지만 표현이 다름. "embodiment 일반화 능력"이 향후 robot FM 시장의 핵심 KPI 될 가능성.</li>
+<li><strong>Pittsburgh 클러스터</strong> — CMU·Pathak/Gupta·Carnegie Robotics·Argo AI 잔재 인재풀. 로봇 인재 시장이 Bay Area에 한정되지 않음을 보여주는 케이스.</li>
+<li><strong>밸류에이션 곡선</strong> — $1.5B → $4B → $14B (18개월 만에 ~10×). PI($11B)와 함께 robot FM 분야 자본 사이클 진입의 명확한 신호.</li>
+<li><strong>vs PI 비교축</strong> — 같은 어그노스틱 포지션이지만 (a) 오픈/클로즈드, (b) 학술 vs 산업, (c) 라이선싱 vs API 직판. 두 회사 비교만으로 "robot FM as a Service" 구도 분석 가능.</li>
+</ul>
+<hr/>
+<div class="kind" style="margin-top:32px">References: <a href="https://www.skild.ai/">skild.ai</a> · <a href="https://research.contrary.com/company/skild-ai">Contrary Research</a> · NVIDIA newsroom · Lightspeed portfolio</div>
+    </article>
+    <section class="related-panel">
+      <div class="h2-numbered"><span class="num">↔</span><h2>Related Notes</h2></div>
+      <div class="grid-2">
+      <a class="card" href="./Company-PhysicalIntelligence.html">
+        <div class="tag">W19 · Company</div>
+        <h3>PhysicalIntelligence</h3>
+        <p class="shared-count">공유 3개</p>
+        <div class="chips"><span class="pill">Teleop</span> <span class="pill">CrossEmbodiment</span> <span class="pill">VLA</span></div>
+      </a>
+      <a class="card" href="./Company-GeneralistAI.html">
+        <div class="tag">W17 · Company</div>
+        <h3>GeneralistAI</h3>
+        <p class="shared-count">공유 1개</p>
+        <div class="chips"><span class="pill">Teleop</span></div>
+      </a>
+      </div>
+    </section>
+
+    <footer>
+      <span>26Q2_P1 · publish_new (orphan branch)</span>
+      <span>Paper-R-P</span>
+    </footer>
+  </div>
+</body>
+</html>

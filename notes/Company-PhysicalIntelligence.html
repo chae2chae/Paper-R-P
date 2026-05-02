@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>PhysicalIntelligence — 26Q2_P1</title>
+  <link rel="stylesheet" href="../style.css"/>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="top">
+      <a href="../index.html">26Q2_P1</a>
+      <span class="sep">·</span>
+      <a href="../weekly/index.html" class="active">weekly</a>
+      <a href="../company-insight/index.html">company-insight</a>
+      <a href="../agent-wiki/index.html">agent-wiki</a>
+    </nav>
+
+    <header class="note-header">
+      <div class="eyebrow">Company · W19 · company <span class="editorial-source curated">curated</span></div>
+      <h1>PhysicalIntelligence</h1>
+      <p class="lead">VLM(PaliGemma) + flow matching = VLA reference design + openpi 오픈소스 + cross-embodiment π 시리즈 (π0 → π0.7)</p>
+    </header>
+    <div class="hero-meta">
+      <div class="meta-row">
+        <span class="meta-label">Concepts</span>
+        <div class="chips"><a class="chip k-Concept broken" href="./Concept-PaliGemma.html">PaliGemma</a><a class="chip k-Concept broken" href="./Concept-FlowMatching.html">FlowMatching</a><a class="chip k-Concept broken" href="./Concept-FAST.html">FAST</a><a class="chip k-Concept broken" href="./Concept-KnowledgeInsulation.html">KnowledgeInsulation</a><a class="chip k-Concept broken" href="./Concept-MEM.html">MEM</a><a class="chip k-Concept broken" href="./Concept-RT-2.html">RT-2</a><a class="chip k-Concept broken" href="./Concept-SayCan.html">SayCan</a><a class="chip k-Concept broken" href="./Concept-MAML.html">MAML</a></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Paradigms</span>
+        <div class="chips"><a class="chip k-Paradigm broken" href="./Paradigm-VLA.html">VLA</a><a class="chip k-Paradigm broken" href="./Paradigm-CrossEmbodiment.html">CrossEmbodiment</a><a class="chip k-Paradigm broken" href="./Paradigm-OpenSourceModel.html">OpenSourceModel</a></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Data Methods</span>
+        <div class="chips"><a class="chip k-DataMethod broken" href="./DataMethod-Teleop.html">Teleop</a><a class="chip k-DataMethod broken" href="./DataMethod-OXE.html">OXE</a><a class="chip k-DataMethod broken" href="./DataMethod-EgocentricWearable.html">EgocentricWearable</a></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Target Tasks</span>
+        <div class="chips"><span class="pill manipulation">manipulation</span><span class="pill household">household</span><span class="pill long-horizon">long-horizon</span><span class="pill compositional-generalization">compositional-generalization</span></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Robots</span>
+        <div class="chips"><span class="pill embodiment-agnostic (7개 로봇 구성 cross-embodiment)">embodiment-agnostic (7개 로봇 구성 cross-embodiment)</span></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Openness</span>
+        <div class="chips"><span class="pill openness-open-source">open-source</span><span class="pill openness-papers">papers</span><span class="pill openness-blog">blog</span></div>
+      </div>
+    </div>
+    <article class="note-body">
+<div class="lead">"General-purpose AI를 물리 세계로." VLM 백본 + flow matching action expert로 <strong>cross-embodiment 로봇 foundation model</strong>을 만드는 연구 중심 회사. π 시리즈 (π0 → π0.5 → π*0.6 → π0.7) 빠른 반복. 학계+산업 듀얼 어피일리에이션 (Levine @ Berkeley, Finn @ Stanford). 오픈소스 + 논문 공개.</div>
+<div class="grid-3">
+  <div class="stat">
+    <div class="num">~$1.07B</div>
+    <div class="lbl">누적 투자</div>
+    <div class="sub">+ $11B 협의 중 (2026-03)</div>
+  </div>
+  <div class="stat">
+    <div class="num">$11B+</div>
+    <div class="lbl">예상 밸류에이션</div>
+    <div class="sub">2026-03 협의 (Bloomberg). 18개월 만에 $2.4B → $11B</div>
+  </div>
+  <div class="stat">
+    <div class="num">7</div>
+    <div class="lbl">로봇 구성</div>
+    <div class="sub">π0 cross-embodiment × 68 task × ~10,000h + OXE</div>
+  </div>
+</div>
+<div class="h2-numbered"><span class="num">01</span><h2>Founders &amp; Team</h2></div>
+<div class="grid-2">
+  <div class="card">
+    <div class="role">CEO · CO-FOUNDER</div>
+    <h3>Karol Hausman</h3>
+    <p>ex-Google DeepMind Staff Research Scientist.</p>
+    <span class="pill">SayCan</span>
+    <span class="pill">RT-1/RT-2 공저</span>
+    <p>학계+산업 양다리 운영 모델의 핵심.</p>
+  </div>
+  <div class="card">
+    <div class="role">CHIEF SCIENTIST · CO-FOUNDER</div>
+    <h3>Sergey Levine</h3>
+    <p>UC Berkeley 교수. RL/로보틱스 분야 최상위 연구자.</p>
+    <span class="pill">Soft Actor-Critic</span>
+    <span class="pill">Offline RL</span>
+    <p>Tony Zhao(Sunday CEO)의 PhD 지도교수 — 동일 학술 계보.</p>
+  </div>
+  <div class="card">
+    <div class="role">CO-FOUNDER</div>
+    <h3>Chelsea Finn</h3>
+    <p>Stanford 교수. 메타러닝 대표 연구자.</p>
+    <span class="pill">MAML</span>
+    <p>Tony Zhao의 PhD 공동 지도교수.</p>
+  </div>
+  <div class="card">
+    <div class="role">CO-FOUNDERS</div>
+    <h3>Brian Ichter, Lachy Groom + 외</h3>
+    <p>Brian — ex-Google Research, SayCan 공저자. Lachy — ex-Stripe 임원, 운영/투자.</p>
+    <p>Quan Vuong, Adnan Esmail — RL/로보틱스 엔지니어링.</p>
+  </div>
+</div>
+<div class="h2-numbered"><span class="num">02</span><h2>Product — π 시리즈</h2></div>
+<div class="grid-2">
+  <div class="card">
+    <h3>π0 (2024-10)</h3>
+    <p>첫 generalist policy. VLM(<strong>PaliGemma</strong>) + flow matching action expert, 50Hz 실시간 액션. <strong>2025-02 오픈소스 공개</strong>.</p>
+    <span class="pill">openpi</span>
+    <span class="pill">Cross-embodiment</span>
+  </div>
+  <div class="card">
+    <h3>π0-FAST</h3>
+    <p>Autoregressive action tokenizer로 <strong>학습 5× 가속</strong>.</p>
+  </div>
+  <div class="card">
+    <h3>π0.5</h3>
+    <p>Open-world generalization. <strong>Knowledge insulation</strong> + 새 환경 일반화. Egocentric wearable 인간 데이터와 co-training.</p>
+  </div>
+  <div class="card">
+    <h3>π0.7 (2026-04)</h3>
+    <p><strong>Compositional generalization</strong>. 학습 데이터에 없던 task도 단편 데이터 + 웹 사전학습으로 합성. 에어프라이어 요리, 커피, 빨래, 박스 조립, 기어 회전 등.</p>
+  </div>
+</div>
+<div class="lead">타겟 폼팩터: 휴머노이드 / 모바일 매니퓰레이터 / 단·양팔 산업로봇 모두. <strong>소프트웨어 우선 — 어떤 로봇에든 들어가는 brain</strong>. 하드웨어 수직통합 X.</div>
+<div class="h2-numbered"><span class="num">03</span><h2>Method — VLM + Flow Matching</h2></div>
+<div class="grid-3">
+  <div class="stat">
+    <div class="num">PaliGemma</div>
+    <div class="lbl">VLM 백본</div>
+    <div class="sub">사전학습된 vision-language model</div>
+  </div>
+  <div class="stat">
+    <div class="num">Flow matching</div>
+    <div class="lbl">Action expert</div>
+    <div class="sub">+ FAST tokenizer (autoregressive 변형)</div>
+  </div>
+  <div class="stat">
+    <div class="num">50Hz</div>
+    <div class="lbl">실시간 액션</div>
+    <div class="sub">π0 / π0.5 동작 주파수</div>
+  </div>
+</div>
+<h3>학습 파이프라인 (π 시리즈 공통)</h3>
+<div class="pipeline">
+  <div class="stage"><strong>Stage 1</strong><div class="kind">VLM pretrain</div>PaliGemma 사전학습 가중치 로드.</div>
+  <div class="stage"><strong>Stage 2</strong><div class="kind">Robot mix-train</div>텔레op + OXE + wearable co-train.</div>
+  <div class="stage"><strong>Stage 3</strong><div class="kind">Knowledge insulation</div>π0.5 — 사전학습 지식 보존하며 적응.</div>
+  <div class="stage"><strong>Stage 4</strong><div class="kind">Online RL</div>π*0.6 — 경험 기반 향상.</div>
+</div>
+<h3>핵심 기법</h3>
+<ul>
+  <li><strong>Coaching/prompting</strong> — 실시간 자연어 코칭으로 모델 재학습 없이 행동 개선</li>
+  <li><strong>Human → Robot transfer</strong> — egocentric wearable 카메라로 1인칭 영상 + 손 포즈 → 액션 매핑. 스케일이 커지면 인간/로봇 정렬이 <em>emergent</em></li>
+  <li><strong>Multi-Scale Embodied Memory (MEM)</strong> — 장기/단기 task 메모리</li>
+  <li><strong>Compositional generalization (π0.7)</strong> — 단편 데이터로 새 task 합성</li>
+</ul>
+<h3>학술 자산 → 회사 자산 (Lineage)</h3>
+<ul class="timeline">
+  <li class="tl-item">
+    <div class="date">2017-2022</div>
+    <div class="ev">Levine — SAC, Offline RL · Finn — <a class="wl wl-broken" href="#" title="아직 없는 노트">Concept-MAML</a> · Hausman/Ichter — <a class="wl wl-broken" href="#" title="아직 없는 노트">Concept-SayCan</a> / <a class="wl wl-broken" href="#" title="아직 없는 노트">Concept-RT-2</a></div>
+    <div class="desc">3 학술 라인 통합 — Berkeley RL + Stanford 메타러닝 + Google VLA.</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2024</div>
+    <div class="ev">Physical Intelligence 설립</div>
+    <div class="desc">Levine·Finn 교수직 유지하며 창업 — 학생/논문 파이프라인 회사 자산화.</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2024-10</div>
+    <div class="ev">π0 논문 + arXiv 정식 발표</div>
+    <div class="desc">VLA 표준 레시피 정립. 사실상 reference design.</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2025-02</div>
+    <div class="ev">openpi 오픈소스 공개</div>
+    <div class="desc">생태계 전략의 첫 단추.</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2025-11</div>
+    <div class="ev">$600M ($5.6B 밸류) — Alphabet CapitalG 리드</div>
+    <div class="desc">Lux/Thrive/Bezos 참여.</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2026-04</div>
+    <div class="ev">π0.7 — Compositional generalization</div>
+    <div class="desc">학습 안 한 task 합성 능력 시연.</div>
+  </li>
+</ul>
+<div class="h2-numbered"><span class="num">04</span><h2>경쟁사 대비 차별점</h2></div>
+<table>
+  <thead>
+    <tr><th>축</th><th>Generalist</th><th>Physical Intelligence</th><th>Skild</th><th>Sunday</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>데이터</td>
+      <td>wearable 1차 50만h</td>
+      <td><strong>텔레op + OXE + wearable co-train</strong></td>
+      <td>인간 비디오 + 텔레op</td>
+      <td>$200 글러브 × 2,000개</td>
+    </tr>
+    <tr>
+      <td>모델 출발점</td>
+      <td>from-scratch physical FM</td>
+      <td><strong>VLM(PaliGemma) + flow matching</strong></td>
+      <td>비공개</td>
+      <td>ACT-1</td>
+    </tr>
+    <tr>
+      <td>모델 공개</td>
+      <td>블로그</td>
+      <td><strong>오픈소스 (openpi) + 논문</strong></td>
+      <td>클로즈드</td>
+      <td>데모 + 보도</td>
+    </tr>
+    <tr>
+      <td>하드웨어</td>
+      <td>자체 그리퍼 + 산업 암</td>
+      <td><strong>Embodiment-agnostic (다중 testbed)</strong></td>
+      <td>Embodiment-agnostic</td>
+      <td>자체 wheeled + telescoping</td>
+    </tr>
+    <tr>
+      <td>GTM</td>
+      <td>데모 → 파트너</td>
+      <td><strong>모델 라이선싱 + 오픈 생태계</strong></td>
+      <td>NVIDIA/Foxconn 직진</td>
+      <td>B2C 가정 베타</td>
+    </tr>
+    <tr>
+      <td>학술 결합</td>
+      <td>MIT 라인</td>
+      <td><strong>Berkeley + Stanford 듀얼 (교수직 유지)</strong></td>
+      <td>CMU</td>
+      <td>Stanford (학생 출신)</td>
+    </tr>
+  </tbody>
+</table>
+<div class="lead">→ PI는 <strong>"VLM 위에 얹는 표준 + 오픈소스 + 학계 듀얼"</strong> 세 축으로 정의됨. Generalist의 from-scratch + closed와 정반대 베팅.</div>
+<div class="h2-numbered"><span class="num">05</span><h2>My Takeaway</h2></div>
+<ul>
+<li><strong>VLM + flow matching = 현재 VLA 표준 레시피</strong> — π0 논문이 사실상 reference design. RT-2 이후 "VLM에 flow matching action head 붙임"이 메인스트림. VLA 코드 베이스로 openpi 사용이 빠른 시작점.</li>
+<li><strong>Generalist vs PI 비교축</strong> — 데이터는 둘 다 텔레op + 인간 wearable이나 비중·위상이 다름. 모델 출발점(VLM 위에 쌓기 vs scratch)과 공개 전략에서 갈림. <strong>두 회사 비교만으로 "VLA 다음 5년"의 주요 분기점이 잘 보임</strong>.</li>
+<li><strong>학계 듀얼 어피일리에이션</strong> — Levine·Finn이 교수직을 유지하며 창업. 학생·논문 파이프라인이 회사 자산. 내 커리어 모델로도 참고할 만함.</li>
+<li><strong>Compositional generalization</strong> (π0.7) — 단편 데이터로 새 task 합성. 로봇 데이터 효율의 핵심 지표. "한 task당 N시간" sample efficiency + compositional eval 두 축으로 향후 비교.</li>
+<li><strong>밸류에이션 곡선</strong> — 18개월 만에 $2B → $5.6B → $11B 예상. 로봇 FM 분야 자본 집중도가 LLM 초기와 유사.</li>
+</ul>
+<hr/>
+<div class="kind" style="margin-top:32px">References: <a href="https://www.pi.website/">pi.website</a> · <a href="https://arxiv.org/abs/2410.24164">π0 paper (arXiv)</a> · <a href="https://github.com/Physical-Intelligence/openpi">openpi (오픈소스)</a> · Bloomberg · TechCrunch · HuggingFace</div>
+    </article>
+    <section class="related-panel">
+      <div class="h2-numbered"><span class="num">↔</span><h2>Related Notes</h2></div>
+      <div class="grid-2">
+      <a class="card" href="./Company-GeneralistAI.html">
+        <div class="tag">W17 · Company</div>
+        <h3>GeneralistAI</h3>
+        <p class="shared-count">공유 3개</p>
+        <div class="chips"><span class="pill">RT-2</span> <span class="pill">SayCan</span> <span class="pill">Teleop</span></div>
+      </a>
+      <a class="card" href="./Company-SkildAI.html">
+        <div class="tag">W21 · Company</div>
+        <h3>SkildAI</h3>
+        <p class="shared-count">공유 3개</p>
+        <div class="chips"><span class="pill">Teleop</span> <span class="pill">CrossEmbodiment</span> <span class="pill">VLA</span></div>
+      </a>
+      </div>
+    </section>
+
+    <footer>
+      <span>26Q2_P1 · publish_new (orphan branch)</span>
+      <span>Paper-R-P</span>
+    </footer>
+  </div>
+</body>
+</html>

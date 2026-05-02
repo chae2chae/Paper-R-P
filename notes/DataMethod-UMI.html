@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>DataMethod-UMI — 26Q2_P1</title>
+  <link rel="stylesheet" href="../style.css"/>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="top">
+      <a href="../index.html">26Q2_P1</a>
+      <span class="sep">·</span>
+      <a href="../weekly/index.html">weekly</a>
+      <a href="../company-insight/index.html" class="active">company-insight</a>
+      <a href="../agent-wiki/index.html">agent-wiki</a>
+    </nav>
+
+    <header class="note-header">
+      <div class="eyebrow">DataMethod <span class="editorial-source draft">draft</span></div>
+      <h1>DataMethod-UMI</h1>
+    </header>
+    <article class="note-body">
+<h2>What it is</h2>
+<p><strong>휴대형 hand-held gripper + GoPro 기반 in-the-wild 로봇 데모 수집 인터페이스.</strong> 사람이 그리퍼를 직접 들고 일상 환경에서 task를 수행하면 그 모션이 로봇 정책 학습 데이터가 된다. 즉 <em>"로봇 없이 로봇 데이터를 만든다"</em>.</p>
+<h2>Origin</h2>
+<ul>
+<li><strong>2024, Columbia / Shuran Song Lab</strong> — Cheng Chi(현 Sunday Robotics CTO co-founder)가 박사과정 중 발표.</li>
+<li><strong>이전 자산과의 연결</strong>: 같은 저자의 <a class="wl wl-broken" href="#" title="아직 없는 노트">Concept-DiffusionPolicy</a> (2023, Best Paper)와 짝을 이룸 — UMI로 모은 데이터 → Diffusion Policy로 학습이 자연스러운 파이프라인.</li>
+<li><strong>선구 자산</strong>: ALOHA(텔레op 기반 양손 데모) → UMI(hand-held로 단가 ↓, in-the-wild ↑).</li>
+</ul>
+<h2>Lineage (계보)</h2>
+<pre class="code"><code class="lang-">[Paper-UMI-Chi-2024 @ Columbia]
+        │
+        ├──→ [[Company-SundayRobotics]] : &quot;Skill Capture Glove&quot; 로 진화
+        │       - 글러브 폼팩터(그리퍼→웨어러블), $200, 2,000+개 분산 운영
+        │       - 500가정 / 10M episode / &quot;Memory Developers&quot; 운영팀
+        │       - ACT-1 사전학습 데이터 100% 차지 (&quot;zero robot data&quot;)
+        │
+        └──→ [[Company-GeneralistAI]] : **Sunday Robotics가 만든 UMI-계열 그리퍼를 사용**
+                - 출처: Forbes article on Generalist, 2026-04
+                - 폼팩터: hand-held parallel gripper × 2 (양손) + 손목 스트랩 + 도크 스테이션
+                - 의의: GenAI는 모델/데이터 철학(&quot;from scratch + wearable 50만h&quot;)은 독자적이지만, **데이터 수집 하드웨어는 Sunday로부터 조달** — UMI/Glove 학술 자산이 산업 공급망까지 확장된 사례
+                - 잔여 질문: GenAI 자체 &quot;data hands&quot; 라인이 Sunday 그리퍼와 별도인지/병행인지</code></pre>
+<p><img src="../assets/forbes-2026-04-generalist-uses-sunday-grippers.png" alt="forbes-2026-04-generalist-uses-sunday-grippers.png" loading="lazy"/> <em>Generalist가 사용 중인 Sunday-made hand-held gripper. Source: Forbes article on Generalist, Apr. 2026.</em></p>
+<h2>Adopted by (자동 — 백링크/dataview)</h2>
+<div class="dv-resolved"><strong>Adopted by (auto):</strong><ul><li><a class="wl" href="../notes/Company-SundayRobotics.html">Company-SundayRobotics</a> <span class="kind">(Company)</span></li></ul></div>
+<h2>Variants & Comparison</h2>
+<table><thead><tr><th>변형</th><th>회사/논문</th><th>폼팩터</th><th>단가</th><th>운영 규모</th></tr></thead><tbody><tr><td>원본 UMI</td><td>Chi et al. 2024</td><td>hand-held parallel gripper + GoPro</td><td>학술 prototype</td><td>단일 랩</td></tr><tr><td>Skill Capture Glove</td><td><a class="wl" href="../notes/Company-SundayRobotics.html">Company-SundayRobotics</a></td><td>웨어러블 글러브</td><td>~$200</td><td>2,000+ / 500가정</td></tr><tr><td>Sunday-made gripper (조달)</td><td><a class="wl" href="../notes/Company-GeneralistAI.html">Company-GeneralistAI</a></td><td>hand-held parallel gripper × 2 + 도크</td><td>미공개</td><td>Forbes 시점 데모 운영</td></tr></tbody></table>
+<h2>Why it matters</h2>
+<ul>
+<li><strong>단위경제 혁신</strong>: 텔레op rig (~$20K) 대비 100×. 분산 데이터 공장이 가능.</li>
+<li><strong>"논문 도구 = 회사 1번 자산" 패턴</strong>: 학계 → 회사 thesis 직결. PI/Skild/Generalist도 동일 패턴(서로 다른 학술 자산이 회사로 이어짐).</li>
+<li><strong>Foundation model의 입력 측 혁신</strong>: 모델 아키텍처가 아니라 데이터 수집 인터페이스가 경쟁력의 핵심이 됨.</li>
+</ul>
+<h2>References</h2>
+<ul>
+<li>arXiv:2402.10329</li>
+<li>프로젝트 페이지: umi-gripper.github.io (캡쳐 요청 시 보안 검토 후 사용자가 가져올 것)</li>
+</ul>
+    </article>
+    <section class="related-panel">
+      <div class="h2-numbered"><span class="num">↔</span><h2>Adopted by</h2></div>
+      <div class="grid-2">
+      <a class="card" href="./Company-SundayRobotics.html">
+        <div class="tag">W19 · Company</div>
+        <h3>SundayRobotics</h3>
+        <p>B2C 가정용 휴머노이드 거부 + $200 Skill Capture Glove 분산 데이터 수집 (Memory Developers 500가정)</p>
+      </a>
+      </div>
+    </section>
+
+    <footer>
+      <span>26Q2_P1 · publish_new (orphan branch)</span>
+      <span>Paper-R-P</span>
+    </footer>
+  </div>
+</body>
+</html>

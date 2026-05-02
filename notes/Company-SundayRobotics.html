@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>SundayRobotics — 26Q2_P1</title>
+  <link rel="stylesheet" href="../style.css"/>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="top">
+      <a href="../index.html">26Q2_P1</a>
+      <span class="sep">·</span>
+      <a href="../weekly/index.html" class="active">weekly</a>
+      <a href="../company-insight/index.html">company-insight</a>
+      <a href="../agent-wiki/index.html">agent-wiki</a>
+    </nav>
+
+    <header class="note-header">
+      <div class="eyebrow">Company · W19 · company <span class="editorial-source curated">curated</span></div>
+      <h1>SundayRobotics</h1>
+      <p class="lead">B2C 가정용 휴머노이드 거부 + $200 Skill Capture Glove 분산 데이터 수집 (Memory Developers 500가정)</p>
+    </header>
+    <div class="hero-meta">
+      <div class="meta-row">
+        <span class="meta-label">Concepts</span>
+        <div class="chips"><a class="chip k-Concept broken" href="./Concept-ACT.html">ACT</a><a class="chip k-Concept broken" href="./Concept-DiffusionPolicy.html">DiffusionPolicy</a><a class="chip k-Concept broken" href="./Concept-ALOHA.html">ALOHA</a></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Paradigms</span>
+        <div class="chips"><a class="chip k-Paradigm broken" href="./Paradigm-ZeroRobotData.html">ZeroRobotData</a><a class="chip k-Paradigm broken" href="./Paradigm-B2CHomeRobot.html">B2CHomeRobot</a></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Data Methods</span>
+        <div class="chips"><a class="chip k-DataMethod" href="./DataMethod-UMI.html">UMI</a></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Target Tasks</span>
+        <div class="chips"><span class="pill household">household</span><span class="pill manipulation">manipulation</span><span class="pill dexterous-long-horizon">dexterous-long-horizon</span></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Robots</span>
+        <div class="chips"><span class="pill Memo (자체 wheeled+telescoping+dual pincer)">Memo (자체 wheeled+telescoping+dual pincer)</span></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Openness</span>
+        <div class="chips"><span class="pill openness-blog">blog</span><span class="pill openness-demo">demo</span></div>
+      </div>
+    </div>
+    <article class="note-body">
+<div class="lead">"Every day should feel like Sunday." — 가정 잡일을 대체하는 컨슈머 로봇 회사. 휴머노이드 폼팩터를 거부하고 wheeled + telescoping spine + dual pincer로 간다. ACT-1 foundation model을 자체 $200 Skill Capture Glove 데이터만으로 학습 ("zero robot data"). 2026-11 Founding Family Beta(50가구) 출시 예정.</div>
+<div class="grid-3">
+  <div class="stat">
+    <div class="num">$200M</div>
+    <div class="lbl">누적 투자</div>
+    <div class="sub">2026-03 Series B (Coatue 리드)</div>
+  </div>
+  <div class="stat">
+    <div class="num">$1.15B</div>
+    <div class="lbl">밸류에이션</div>
+    <div class="sub">Tiger Global · Benchmark · Bain · Fidelity 참여</div>
+  </div>
+  <div class="stat">
+    <div class="num">70+</div>
+    <div class="lbl">팀 사이즈</div>
+    <div class="sub">Stanford · Tesla · DeepMind · Waymo · Meta · OpenAI · Apple 출신</div>
+  </div>
+</div>
+<div class="h2-numbered"><span class="num">01</span><h2>Founders &amp; Team</h2></div>
+<div class="grid-2">
+  <div class="card">
+    <div class="role">CEO · CO-FOUNDER</div>
+    <h3>Tony Z. Zhao</h3>
+    <p>UC Berkeley EECS BS('21), Stanford CS PhD 중퇴(2024). 지도교수 <strong>Sergey Levine + Chelsea Finn</strong> — Physical Intelligence 창업자들과 동일 랩 계보.</p>
+    <span class="pill">ALOHA</span>
+    <span class="pill">ACT (Action Chunking)</span>
+    <span class="pill">Mobile ALOHA</span>
+    <span class="pill">ALOHA 2</span>
+    <p>ex-Google DeepMind, ex-Tesla Autopilot.</p>
+  </div>
+  <div class="card">
+    <div class="role">CTO · CO-FOUNDER</div>
+    <h3>Cheng Chi</h3>
+    <p>Univ. of Michigan CS BS, Columbia CS PhD (지도: <strong>Shuran Song</strong>). Best Paper Award 2회.</p>
+    <span class="pill">Diffusion Policy</span>
+    <span class="pill">UMI</span>
+    <p>UMI(Universal Manipulation Interface)는 Sunday <strong>Skill Capture Glove의 직접적 전신</strong>. 또한 Generalist AI도 Sunday-made UMI 그리퍼를 데이터 수집에 사용.</p>
+  </div>
+</div>
+<div class="h2-numbered"><span class="num">02</span><h2>Product — Memo</h2></div>
+<div class="lead">가정용 personal robot. 휴머노이드 X — wheeled base + telescoping Z-axis spine + dual pincer.</div>
+<div class="grid-2">
+  <div class="card">
+    <h3>하드웨어 스펙</h3>
+    <ul>
+      <li>1.7m tall, 170 lbs</li>
+      <li>Vertical reach <strong>2.1m</strong> / horizontal 0.8m</li>
+      <li>4시간 런타임, 1시간 충전(0→80%)</li>
+      <li>강체 + 탄성 폴리머 + soft-touch 외피</li>
+      <li><strong>Dual pincer gripper</strong> (5-finger hand 거부)</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Demo: Table-to-Dishwasher</h3>
+    <ul>
+      <li><strong>33-step</strong> dexterous interaction 시퀀스</li>
+      <li>음식물 긁어내기 · 랙 정리 · 와인잔 force-control</li>
+      <li>식기 · 세탁 · 정리 · 에스프레소 추출</li>
+    </ul>
+    <p class="lead">Founding Family Beta — 2026-11 Thanksgiving · 50가구 · 무료.</p>
+  </div>
+</div>
+<div class="h2-numbered"><span class="num">03</span><h2>Method — Skill Capture Glove + ACT-1</h2></div>
+<div class="grid-3">
+  <div class="stat">
+    <div class="num">~$200</div>
+    <div class="lbl">글러브 단가</div>
+    <div class="sub">텔레op rig (~$20K) 대비 100×</div>
+  </div>
+  <div class="stat">
+    <div class="num">2,000+</div>
+    <div class="lbl">배포 글러브</div>
+    <div class="sub">500+ 가정에 분산</div>
+  </div>
+  <div class="stat">
+    <div class="num">~10M</div>
+    <div class="lbl">Episode 수집</div>
+    <div class="sub">"Memory Developers" 운영팀</div>
+  </div>
+</div>
+<h3>학습 파이프라인</h3>
+<div class="pipeline">
+  <div class="stage"><strong>Stage 1</strong><div class="kind">Pretrain</div>인간 글러브 데이터 (10M+ ep). 로봇 데이터 0.</div>
+  <div class="stage"><strong>Stage 2</strong><div class="kind">Skill Transform</div>글러브 모션 → 로봇 액션 매핑.</div>
+  <div class="stage"><strong>Stage 3</strong><div class="kind">Robot eval</div>실 robot rollout 평가.</div>
+  <div class="stage"><strong>Stage 4</strong><div class="kind">Inference</div>90% 성공률 클레임 (자체 보고).</div>
+</div>
+<h3>학술 자산 → 회사 자산 (Lineage)</h3>
+<ul class="timeline">
+  <li class="tl-item">
+    <div class="date">2023</div>
+    <div class="ev"><a class="wl wl-broken" href="#" title="아직 없는 노트">Concept-ALOHA</a> + <a class="wl wl-broken" href="#" title="아직 없는 노트">Concept-ACT</a> (Tony Zhao @ Stanford)</div>
+    <div class="desc">Action Chunking with Transformers — 모델 백본의 prior art</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2023</div>
+    <div class="ev"><a class="wl wl-broken" href="#" title="아직 없는 노트">Concept-DiffusionPolicy</a> (Cheng Chi @ Columbia)</div>
+    <div class="desc">Best Paper. 학계/산업 표준 채택. Visuomotor policy via diffusion.</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2024</div>
+    <div class="ev"><a class="wl" href="../notes/DataMethod-UMI.html">DataMethod-UMI</a> (Cheng Chi)</div>
+    <div class="desc">Hand-held gripper로 in-the-wild 데이터 수집 — Skill Capture Glove의 직접적 전신.</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2024</div>
+    <div class="ev">Sunday Robotics 설립 (스텔스)</div>
+    <div class="desc">학술 자산 3종(ALOHA / Diffusion Policy / UMI)이 회사 thesis로 직결.</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2025-11</div>
+    <div class="ev">Memo + Skill Capture Glove 공개</div>
+    <div class="desc">"Zero robot data" 클레임. 시드 $35M (Benchmark + Conviction 리드).</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2026-03</div>
+    <div class="ev">Series B $165M, $1.15B valuation</div>
+    <div class="desc">Coatue 리드. 팀 30+ → 70+.</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2026-11</div>
+    <div class="ev">Founding Family Beta (예정)</div>
+    <div class="desc">Thanksgiving · 50가구 · 무료.</div>
+  </li>
+</ul>
+<div class="h2-numbered"><span class="num">04</span><h2>경쟁사 대비 차별점</h2></div>
+<table>
+  <thead>
+    <tr><th>축</th><th>GeneralistAI</th><th>Physical Intelligence</th><th>Skild AI</th><th>Sunday</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>데이터</td>
+      <td>자체 wearable "data hands" 50만h<br/><span class="kind">+ Sunday-made UMI 그리퍼 사용 (Forbes 2026-04)</span></td>
+      <td>텔레op + OXE + wearable co-train</td>
+      <td>인간 비디오 + 텔레op</td>
+      <td><strong>$200 글러브 × 2,000개 · 10M ep · 500 가정</strong></td>
+    </tr>
+    <tr>
+      <td>모델</td>
+      <td>From-scratch physical FM (~99% 신규)</td>
+      <td>VLM(PaliGemma) + flow matching</td>
+      <td>비공개 (인간 비디오 사전학습 강조)</td>
+      <td><strong>ACT-1 — "zero robot data"</strong></td>
+    </tr>
+    <tr>
+      <td>폼팩터</td>
+      <td>산업용 암 + 자체 그리퍼</td>
+      <td>Embodiment-agnostic</td>
+      <td>Embodiment-agnostic</td>
+      <td><strong>Wheeled + telescoping + dual pincer</strong></td>
+    </tr>
+    <tr>
+      <td>공개</td>
+      <td>블로그</td>
+      <td>오픈소스 (openpi) + 논문</td>
+      <td>클로즈드</td>
+      <td>데모 + 보도</td>
+    </tr>
+    <tr>
+      <td>GTM</td>
+      <td>산업 데모 → 파트너</td>
+      <td>모델 라이선싱 (생태계)</td>
+      <td>NVIDIA / Foxconn 산업 직진</td>
+      <td><strong>B2C 가정 베타 (Thanksgiving 2026)</strong></td>
+    </tr>
+    <tr>
+      <td>거점</td>
+      <td>Bay + Boston (MIT)</td>
+      <td>SF (Berkeley/Stanford)</td>
+      <td>Pittsburgh (CMU)</td>
+      <td>Mountain View (Stanford)</td>
+    </tr>
+  </tbody>
+</table>
+<div class="lead">→ Sunday는 <strong>B2C 컨슈머 + 데이터 수집 분산화</strong> 두 축에서 다른 셋과 구분됨. 모델 철학은 Generalist에 가까움 (인간 데이터 우선, scratch FM, "VLA labelling 거부"). 학술 계보는 PI에 가까움 (Levine/Finn 라인).</div>
+<div class="h2-numbered"><span class="num">05</span><h2>My Takeaway</h2></div>
+<ul>
+<li><strong>UMI → Skill Capture Glove 진화가 핵심</strong> — Cheng Chi의 학술 도구(UMI = 휴대형 그리퍼)가 회사의 1번 자산(글러브)으로 이어진 사례. <strong>"논문에서 만든 도구가 곧 회사의 데이터 파이프라인"</strong> 패턴은 Pathak(Skild, curiosity)·Florence(Generalist, PaLM-E)·Levine(PI, RL)과 동일 구조.</li>
+<li><strong>데이터 수집 단위경제</strong> — $200 글러브 vs $20K 텔레op = <strong>100×</strong>. PI/Generalist도 wearable을 쓰지만 자체 운영팀 규모. Sunday는 <strong>분산 일반인 채용("Memory Developers")</strong>으로 한 단계 더 나감.</li>
+<li><strong>Generalist가 Sunday 그리퍼를 조달</strong> — UMI 학술 자산이 산업 공급망까지 확장된 사례. Sunday는 <em>완성품 회사</em>이자 <em>데이터 인프라 공급자</em>가 될 가능성. (참조: <a class="wl" href="../notes/DataMethod-UMI.html">DataMethod-UMI</a>)</li>
+<li><strong>휴머노이드 거부 + B2C-only</strong> — 폼팩터 베팅이 PI/Skild/Generalist와 정반대. 1X(Neo)와 직접 경쟁군.</li>
+<li><strong>창업자 학술 자산이 가장 강한 회사</strong> — ALOHA + Diffusion Policy + UMI는 robot manipulation 분야 가장 많이 인용되는 하드웨어/방법론 3종.</li>
+</ul>
+<hr/>
+<div class="kind" style="margin-top:32px">References: <a href="https://www.sundayrobotics.com">sundayrobotics.com</a> · Forbes (Apr. 2026) · Bloomberg Series B coverage</div>
+    </article>
+
+    <footer>
+      <span>26Q2_P1 · publish_new (orphan branch)</span>
+      <span>Paper-R-P</span>
+    </footer>
+  </div>
+</body>
+</html>

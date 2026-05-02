@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>GeneralistAI — 26Q2_P1</title>
+  <link rel="stylesheet" href="../style.css"/>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="top">
+      <a href="../index.html">26Q2_P1</a>
+      <span class="sep">·</span>
+      <a href="../weekly/index.html" class="active">weekly</a>
+      <a href="../company-insight/index.html">company-insight</a>
+      <a href="../agent-wiki/index.html">agent-wiki</a>
+    </nav>
+
+    <header class="note-header">
+      <div class="eyebrow">Company · W17 · company <span class="editorial-source curated">curated</span></div>
+      <h1>GeneralistAI</h1>
+      <p class="lead">From-scratch Physical Foundation Model (~99% scratch) + 자체 wearable &#x27;data hands&#x27; 50만h + Harmonic Reasoning streaming inference + scaling laws (7B 임계값)</p>
+    </header>
+    <div class="hero-meta">
+      <div class="meta-row">
+        <span class="meta-label">Concepts</span>
+        <div class="chips"><a class="chip k-Concept broken" href="./Concept-PaLM-E.html">PaLM-E</a><a class="chip k-Concept broken" href="./Concept-RT-2.html">RT-2</a><a class="chip k-Concept broken" href="./Concept-SayCan.html">SayCan</a><a class="chip k-Concept broken" href="./Concept-Code-as-Policies.html">Code-as-Policies</a><a class="chip k-Concept broken" href="./Concept-Harmonic-Reasoning.html">Harmonic-Reasoning</a></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Paradigms</span>
+        <div class="chips"><a class="chip k-Paradigm broken" href="./Paradigm-PhysicalFoundationModel.html">PhysicalFoundationModel</a><a class="chip k-Paradigm broken" href="./Paradigm-WearableFirst.html">WearableFirst</a></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Data Methods</span>
+        <div class="chips"><a class="chip k-DataMethod broken" href="./DataMethod-DataHands.html">DataHands</a><a class="chip k-DataMethod broken" href="./DataMethod-Teleop.html">Teleop</a></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Target Tasks</span>
+        <div class="chips"><span class="pill industrial-manipulation">industrial-manipulation</span><span class="pill contact-rich">contact-rich</span><span class="pill packaging">packaging</span></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Robots</span>
+        <div class="chips"><span class="pill UR7e (산업용 암 + 자체 그리퍼)">UR7e (산업용 암 + 자체 그리퍼)</span></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Openness</span>
+        <div class="chips"><span class="pill openness-blog">blog</span><span class="pill openness-demo">demo</span></div>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Partners</span>
+        <div class="chips"><span class="pill Universal Robots">Universal Robots</span><span class="pill NVIDIA">NVIDIA</span></div>
+      </div>
+    </div>
+    <article class="note-body">
+<div class="lead">"물리 세계의 범용 지능." <strong>embodied foundation model을 처음부터 학습</strong>시키는 회사. "physical labor의 한계비용을 0으로." VLA도 World Model도 거부 — 자체 카테고리 "Physical Foundation Model". 자체 wearable "data hands"로 인간 50만시간 데이터 수집. 데이터 수집은 Sunday-made UMI 그리퍼도 사용 (Forbes Apr. 2026).</div>
+<div class="grid-3">
+  <div class="stat">
+    <div class="num">$140M</div>
+    <div class="lbl">누적 투자</div>
+    <div class="sub">Boldstart · NVIDIA 공동 리드</div>
+  </div>
+  <div class="stat">
+    <div class="num">500K h</div>
+    <div class="lbl">실세계 데이터</div>
+    <div class="sub">자체 wearable "data hands" — 1000+ 가정/창고/직장</div>
+  </div>
+  <div class="stat">
+    <div class="num">99%</div>
+    <div class="lbl">GEN-1 평균 성공률</div>
+    <div class="sub">GEN-0 64% 대비 / 3× 빠른 실행</div>
+  </div>
+</div>
+<div class="h2-numbered"><span class="num">01</span><h2>Founders &amp; Team</h2></div>
+<div class="grid-2">
+  <div class="card">
+    <div class="role">CEO · CO-FOUNDER</div>
+    <h3>Pete Florence</h3>
+    <p>ex-Google DeepMind Senior Research Scientist, MIT PhD.</p>
+    <span class="pill">PaLM-E 리드</span>
+    <span class="pill">Inference-Time Policy Steering</span>
+    <p>인용수 19,000+. <em>"VLA labelling은 데이터 부족 시대의 임시방편"</em>이라 발언 (자신이 만든 RT-2 계열을 부정).</p>
+  </div>
+  <div class="card">
+    <div class="role">CO-FOUNDER</div>
+    <h3>Andy Zeng</h3>
+    <p>ex-Google DeepMind, MIT PhD.</p>
+    <span class="pill">RT-2</span>
+    <span class="pill">SayCan</span>
+    <span class="pill">Code-as-Policies</span>
+    <p>VLA 기반 작업 다수.</p>
+  </div>
+  <div class="card">
+    <div class="role">CO-FOUNDER</div>
+    <h3>Andy Barry</h3>
+    <p>ex-Boston Dynamics, MIT PhD.</p>
+    <span class="pill">Atlas / Spot / Stretch</span>
+    <p>BD 시스템 개발 약 20년.</p>
+  </div>
+  <div class="card">
+    <div class="role">2 거점</div>
+    <h3>Bay Area + Boston</h3>
+    <p>연구자 · 로보티시스트 · "company builders" 동시 채용. DeepMind / Boston Dynamics / OpenAI 출신.</p>
+  </div>
+</div>
+<div class="h2-numbered"><span class="num">02</span><h2>Product — GEN 시리즈</h2></div>
+<div class="grid-2">
+  <div class="card">
+    <h3>GEN-1 (2026-04)</h3>
+    <ul>
+      <li>평균 <strong>99% 성공률</strong> (GEN-0 64% 대비)</li>
+      <li><strong>3× 빠른</strong> 실행 속도</li>
+      <li>박스 폴딩 <strong>12.1s</strong> vs π0 ~34s</li>
+      <li>폰 패킹 200회 연속 99%</li>
+      <li>Task당 <strong>로봇 데이터 1시간</strong>으로 학습</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>GEN-0 (2025-11)</h3>
+    <ul>
+      <li>270,000h 데이터 학습</li>
+      <li>주 +10,000h 증가 → GEN-1 시점 500,000h</li>
+      <li>"하루 학습으로 6.85년 경험 흡수"</li>
+      <li><strong>7B parameter phase transition</strong> (사전학습 내재화)</li>
+    </ul>
+  </div>
+</div>
+<div class="lead">데모 폼팩터: <strong>UR7e 산업용 로봇팔 2대 + 자체 그리퍼</strong>. GTC 2026 스마트폰 패키징 자율 시연. 휴머노이드 거부 — "function over form, robots that move like humans, not look like humans."</div>
+<div class="h2-numbered"><span class="num">03</span><h2>Method — Harmonic Reasoning + Wearable Data</h2></div>
+<div class="grid-3">
+  <div class="stat">
+    <div class="num">~99%</div>
+    <div class="lbl">파라미터</div>
+    <div class="sub">From scratch (VLM 사전학습 우회)</div>
+  </div>
+  <div class="stat">
+    <div class="num">7B</div>
+    <div class="lbl">phase transition</div>
+    <div class="sub">사전학습 내재화 임계값 — 미만은 ossification</div>
+  </div>
+  <div class="stat">
+    <div class="num">10B+</div>
+    <div class="lbl">검증 모델 크기</div>
+    <div class="sub">Scaling laws Kaplan 2020 functional form</div>
+  </div>
+</div>
+<h3>Harmonic Reasoning — 핵심 베팅</h3>
+<div class="diagram">
+  <p class="cap">VLA가 (관측 → 청크 N개 액션 → 실행) 사이클인 반면, GEN은 관측과 액션을 <strong>연속 시간 토큰 스트림</strong>으로 다룸. action chunking의 latency/jitter를 구조적으로 우회.</p>
+  <ul>
+    <li><strong>입력</strong>: 비전 + 언어 + (proprioception 추정)</li>
+    <li><strong>출력</strong>: "asynchronous, continuous-time streams of sensing and acting tokens"</li>
+    <li><strong>추론</strong>: System1/System2 (느린 사고 + 빠른 행동) 분리 거부 + inference-time guidance 거부</li>
+    <li><strong>인프라</strong>: paged attention 실시간 추론, 커스텀 GPU 커널 (LLM 서빙 스택)</li>
+  </ul>
+</div>
+<h3>학습 파이프라인 (4단계 추정)</h3>
+<div class="pipeline">
+  <div class="stage"><strong>Stage 1</strong><div class="kind">Massive pretrain</div>인간 wearable 50만h. 로봇 데이터 0.</div>
+  <div class="stage"><strong>Stage 2</strong><div class="kind">Robot adaptation</div>Task당 ~1h 로봇 데이터.</div>
+  <div class="stage"><strong>Stage 3</strong><div class="kind">RL + Human guidance</div>"이론적 RL" + multimodal coaching.</div>
+  <div class="stage"><strong>Stage 4</strong><div class="kind">Inference</div>Harmonic Reasoning + paged attention.</div>
+</div>
+<h3>학술 자산 → 회사 자산 (Lineage)</h3>
+<ul class="timeline">
+  <li class="tl-item">
+    <div class="date">2022-2023</div>
+    <div class="ev">Florence — <a class="wl wl-broken" href="#" title="아직 없는 노트">Concept-PaLM-E</a>, Zeng — <a class="wl wl-broken" href="#" title="아직 없는 노트">Concept-RT-2</a> / <a class="wl wl-broken" href="#" title="아직 없는 노트">Concept-SayCan</a></div>
+    <div class="desc">VLA 패러다임 prior art. 본인들이 만들었으나 후일 부정.</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2024</div>
+    <div class="ev">Generalist AI 설립 (스텔스)</div>
+    <div class="desc">VLA 거부 + 자체 wearable 데이터 thesis.</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2025-03</div>
+    <div class="ev">시드 공개 + NVIDIA 투자</div>
+    <div class="desc">Boldstart + NVIDIA 공동 리드.</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2025-11</div>
+    <div class="ev">GEN-0 + Scaling Laws 블로그</div>
+    <div class="desc">270,000h. Kaplan 스타일 robotics 스케일링 법칙 첫 공개.</div>
+  </li>
+  <li class="tl-item">
+    <div class="date">2026-04</div>
+    <div class="ev">GEN-1 — 99% mastery + Forbes 노출</div>
+    <div class="desc">Sunday-made UMI 그리퍼 사용 사실 확인 (Forbes article).</div>
+  </li>
+</ul>
+<div class="h2-numbered"><span class="num">04</span><h2>경쟁사 대비 차별점</h2></div>
+<table>
+  <thead>
+    <tr><th>축</th><th>Generalist</th><th>Physical Intelligence</th><th>Skild</th><th>Sunday</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>데이터</td>
+      <td><strong>wearable 1차 (50만h)</strong> + Sunday UMI 조달</td>
+      <td>텔레op + OXE + wearable co-train</td>
+      <td>인간 비디오 + 텔레op</td>
+      <td>$200 글러브 × 2,000개</td>
+    </tr>
+    <tr>
+      <td>모델 출발점</td>
+      <td><strong>from-scratch physical FM (~99%)</strong></td>
+      <td>VLM(PaliGemma) + flow matching</td>
+      <td>비공개</td>
+      <td>ACT-1</td>
+    </tr>
+    <tr>
+      <td>아키텍처 핵심</td>
+      <td><strong>Harmonic Reasoning (streaming)</strong></td>
+      <td>Flow matching action expert</td>
+      <td>Skild Brain (omni-bodied)</td>
+      <td>Action chunking</td>
+    </tr>
+    <tr>
+      <td>VLA 입장</td>
+      <td><strong>거부 ("임시방편")</strong></td>
+      <td>VLA 표준 레시피</td>
+      <td>VLA 변형</td>
+      <td>VLA 우회</td>
+    </tr>
+    <tr>
+      <td>스케일링 법칙</td>
+      <td><strong>Kaplan-style 공개 (7B 임계값)</strong></td>
+      <td>경험 기반 (RL)</td>
+      <td>비공개</td>
+      <td>비공개</td>
+    </tr>
+    <tr>
+      <td>거점</td>
+      <td><strong>Bay + Boston (MIT)</strong></td>
+      <td>SF (Berkeley/Stanford)</td>
+      <td>Pittsburgh (CMU)</td>
+      <td>Mountain View (Stanford)</td>
+    </tr>
+  </tbody>
+</table>
+<div class="lead">→ Generalist는 <strong>"VLM 우회 + scaling laws + 자체 wearable"</strong> 세 베팅이 핵심. 모두 검증 안 된 큰 가정 — 270k → 500k → 1M 시간으로 늘었을 때 power-law가 깨질지, 7B 임계값이 다른 task family에서도 재현될지가 follow 포인트.</div>
+<div class="h2-numbered"><span class="num">05</span><h2>My Takeaway</h2></div>
+<ul>
+<li><strong>"데이터 파이프라인이 모델보다 먼저"</strong> — wearable 인간 시연 데이터 수집을 회사의 1번 자산. 로봇 연구에서 시뮬/텔레op에만 의존하지 않는 <strong>실세계 데이터 인프라 설계</strong> 관점은 내 셋업에도 적용 가능.</li>
+<li><strong>VLA → physical-first FM 흐름</strong> — RT-2/PaLM-E를 만든 본인들이 "VLM 위에 얹는 건 임시방편"이라 선언. <em>"pretrained VLM fine-tune"</em> vs <em>"from-scratch physical FM"</em> 두 트랙으로 분리해서 추적 필요.</li>
+<li><strong>하드웨어 미니멀리즘</strong> — 휴머노이드 없이 산업 암 + 그리퍼만으로 contact-rich 시연. "지능이 곧 차별화"라는 가설을 가장 강하게 베팅 중. 폼팩터에 발목 잡히지 말 것.</li>
+<li><strong>Scaling laws in robotics</strong> — GEN-0 블로그가 Kaplan 2020 스타일을 시도한 보기 드문 자료. 7B 임계값 + power-law가 실제로 검증되면 robotics가 LLM 트랙과 통합됨.</li>
+<li><strong>Generalist ⊃ Sunday gripper</strong> — 데이터 수집 하드웨어를 Sunday로부터 조달. 학술 자산(UMI)이 산업 공급망까지 확장된 사례. (참조: <a class="wl" href="../notes/DataMethod-UMI.html">DataMethod-UMI</a>)</li>
+</ul>
+<hr/>
+<div class="kind" style="margin-top:32px">References: <a href="https://generalistai.com/">generalistai.com</a> · <a href="https://generalistai.com/blog/apr-02-2026-GEN-1">GEN-1 blog</a> · <a href="https://generalistai.com/blog/nov-04-2025-GEN-0">GEN-0 (Scaling Laws)</a> · TechCrunch · Humanoids Daily · Boldstart</div>
+    </article>
+    <section class="related-panel">
+      <div class="h2-numbered"><span class="num">↔</span><h2>Related Notes</h2></div>
+      <div class="grid-2">
+      <a class="card" href="./Company-PhysicalIntelligence.html">
+        <div class="tag">W19 · Company</div>
+        <h3>PhysicalIntelligence</h3>
+        <p class="shared-count">공유 3개</p>
+        <div class="chips"><span class="pill">RT-2</span> <span class="pill">SayCan</span> <span class="pill">Teleop</span></div>
+      </a>
+      <a class="card" href="./Company-SkildAI.html">
+        <div class="tag">W21 · Company</div>
+        <h3>SkildAI</h3>
+        <p class="shared-count">공유 1개</p>
+        <div class="chips"><span class="pill">Teleop</span></div>
+      </a>
+      </div>
+    </section>
+
+    <footer>
+      <span>26Q2_P1 · publish_new (orphan branch)</span>
+      <span>Paper-R-P</span>
+    </footer>
+  </div>
+</body>
+</html>
